@@ -1,0 +1,6 @@
+Yellow Sac,Venomous,60.0,3
+False Widow,Venomous,80.0,1
+Hobo Spider,Venomous,80.0,2
+Brown Recluse,Venomous,80.0,2
+Brazilian Wanderer,Venomous,300.0,3
+Ricky,Illegal,55.0,2,Medium

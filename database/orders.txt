@@ -1,0 +1,9 @@
+3,Nacho,Castiñeiras,80.0,10-03-2025
+10,Ryan,The Crockett,80.0,10-03-2025
+2,Dalinar,Kholin,520.0,10-03-2025
+1,Nacho,Castiñeiras,60.0,10-03-2025
+1,Nacho,Castiñeiras,80.0,22-03-2025
+2,Dalinar,Kholin,240.0,22-03-2025
+3,Freddy,Julius,320.0,22-03-2025
+2,Dalinar,Kholin,120.0,25-03-2025
+3,Freddy,Julius,80.0,25-03-2025
