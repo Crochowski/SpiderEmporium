@@ -22,8 +22,9 @@ public class OrderView {
     private ComboBox<Customer> customerBox;
     private ComboBox<Spider> spiderBox;
     private ListView<Spider> checkOutView;
+    private ListView<Spider> receiptSpidersView;
     private Button addBtn, removeBtn, purchaseBtn;
-    private Label totalLabel;
+    private Label totalLabel, receiptCustomerLabel, receiptDateLabel;
 
     private ArrayList<Customer> availableCustomers;
     private ArrayList<Spider> availableSpiders;
@@ -92,7 +93,7 @@ public class OrderView {
         createHeading();
         createButtons();
         createTopSection();
-        createListView();
+        createCheckOutView();
         createBottomSection();
     }
 
@@ -113,9 +114,9 @@ public class OrderView {
     }
 
     private void createTopSection() {
-        HBox topSection = new HBox(20);
+        HBox topSection = new HBox(10);
         topSection.setAlignment(Pos.TOP_CENTER);
-        VBox selectionBox = new VBox(10);
+        VBox selectionBox = new VBox(5);
         selectionBox.setAlignment(Pos.CENTER);
         selectionBox.setPadding(new Insets(10, 0, 0, 0));
 
@@ -136,7 +137,7 @@ public class OrderView {
         root.getChildren().add(topSection);
     }
 
-    private void createListView() {
+    private void createCheckOutView() {
         HBox checkOutViewBox = new HBox();
         checkOutViewBox.setPadding(new Insets(10, 0, 0, 0));
         checkOutViewBox.setAlignment(Pos.CENTER);
@@ -161,13 +162,18 @@ public class OrderView {
         root.getChildren().add(bottomBox);
     }
 
+    private void createReceiptDisplay() {
+
+    }
+
     public void updateTotalLabel(String message) {
         this.totalLabel.setText("Total: " + message);
     }
 
     public void displayPurchaseConfirmation(String customerName, double total) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Thank you " + customerName + "!\n" +
-                "Your total is $" + total + "\nEnjoy your new Spider friends!");
+                "Your total is $" + String.format("%.2f", total) + "\nEnjoy your new Spider friends!");
+        alert.getButtonTypes().setAll(ButtonType.OK);
         alert.showAndWait();
     }
 

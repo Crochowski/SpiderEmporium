@@ -23,7 +23,7 @@ public class SpiderView {
     private ToggleGroup typeGroup;
 
     public SpiderView() {
-        this.root = new VBox(10);
+        this.root = new VBox(30);
         this.root.setStyle("-fx-background-color: #3e2340");
     }
 

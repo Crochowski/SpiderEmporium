@@ -36,7 +36,7 @@ public class SpiderApplication extends Application {
         customerTab.setContent(customerView.getRoot());
 
         // Spider tab
-        Tab spiderTab = new Tab("Spiders");
+        Tab spiderTab = new Tab("Manage Inventory");
         spiderTab.setClosable(false);
 
         SpiderOps spiderOps = new SpiderOps();
@@ -67,12 +67,13 @@ public class SpiderApplication extends Application {
 
         orderTab.setContent(orderView.getRoot());
 
-        // Add tabs to the TabPane individually
+        // Add tabs to the TabPane
         tabPane.getTabs().add(customerTab);
-        tabPane.getTabs().add(spiderTab);
         tabPane.getTabs().add(orderTab);
+        tabPane.getTabs().add(spiderTab);
 
-        Scene scene = new Scene(tabPane, 500, 480);
+
+        Scene scene = new Scene(tabPane, 600, 580);
         stage.setScene(scene);
         stage.setTitle("Spider Emporium \uD83D\uDD77\uFE0F");
 

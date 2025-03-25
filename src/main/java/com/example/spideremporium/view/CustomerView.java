@@ -21,7 +21,7 @@ public class CustomerView {
     private ListView<Customer> customerDisplay;
 
     public CustomerView() {
-        this.root = new VBox(10);
+        this.root = new VBox(20);
         this.root.setStyle("-fx-background-color: #3e2340");
     }
 
