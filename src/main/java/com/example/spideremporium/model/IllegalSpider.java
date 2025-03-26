@@ -33,6 +33,7 @@ public final class IllegalSpider extends VenomousSpider {
         }
 
         this.type = "Illegal";
+        System.out.println("This spider is " + this.type);
 
     }
 
@@ -64,6 +65,11 @@ public final class IllegalSpider extends VenomousSpider {
     public String getRisk() {
         return this.risk;
     }
+
+    public String getType() {
+        return this.type;
+    }
+
 
     public String toString() {
         return this.species + " | " + this.type + " | $" + this.price + " | Potency: " + this.venomPotency + " | Risk: "

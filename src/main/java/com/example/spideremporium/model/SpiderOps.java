@@ -46,13 +46,15 @@ public class SpiderOps {
                     spider = new VenomousSpider(species, venomPotency, price);
                 }
 
-                if (type.equals("Illegal")) {
+                else if (type.equals("Illegal")) {
                     String risk = data[4];
                     // Create the Illegal Spider object
                     spider = new IllegalSpider(species, venomPotency, price, risk);
+                    spider.setType("Illegal");
                 }
 
                 spiderList.add(spider);                 // Add the new spider to spiderList
+                System.out.println(spiderList);
             }
 
         } catch (IOException error) {

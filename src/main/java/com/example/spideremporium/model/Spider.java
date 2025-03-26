@@ -46,6 +46,8 @@ public abstract class Spider {
         return this.price;
     }
 
-
+    public void setType(String _type) {
+        this.type = _type;
+    }
 }
 

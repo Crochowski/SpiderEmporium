@@ -94,7 +94,8 @@ public class OrderView {
         createButtons();
         createTopSection();
         createCheckOutView();
-        createBottomSection();
+        createPurchaseSection();
+        createReceiptSection();
     }
 
     private void createButtons() {
@@ -150,7 +151,7 @@ public class OrderView {
         root.getChildren().add(checkOutViewBox);
     }
 
-    private void createBottomSection() {
+    private void createPurchaseSection() {
         HBox bottomBox = new HBox(50);
         bottomBox.setPadding(new Insets(10, 0, 0, 0));
         bottomBox.setAlignment(Pos.CENTER);
@@ -162,9 +163,41 @@ public class OrderView {
         root.getChildren().add(bottomBox);
     }
 
-    private void createReceiptDisplay() {
+    private void createReceiptSection() {
+        VBox orderSummaryBox = new VBox(5);
+        orderSummaryBox.setPadding(new Insets(10, 0, 0, 0));
+        orderSummaryBox.setAlignment(Pos.CENTER);
+
+        // Create customer label
+        this.receiptCustomerLabel = new Label("Customer: ");
+        receiptCustomerLabel.setTextFill(Color.WHITE);
+
+        // Create date label
+        Label orderDateLabel = new Label("Date: ");
+        orderDateLabel.setTextFill(Color.WHITE);
+
+        VBox customerAndDateBox = new VBox(5);
+        customerAndDateBox.getChildren().addAll(receiptCustomerLabel, orderDateLabel);
+        customerAndDateBox.setPadding(new Insets(0, 0, 0, 140));
+
+        // ListView for spiders purchased this order
+        ListView<Spider> orderReceiptView = new ListView<>();
+        orderReceiptView.setMaxWidth(320);
+        orderReceiptView.setPrefHeight(150);
+
+        // Alphabetically Sort button
+        HBox sortingBox = new HBox(10);
+        sortingBox.setAlignment(Pos.CENTER);
+        Button sortAZBtn = new Button("Sort A-Z");
+        Button sortPriceBtn = new Button("Sort Price");
+        sortingBox.getChildren().addAll(sortAZBtn, sortPriceBtn);
+
+        orderSummaryBox.getChildren().addAll(customerAndDateBox, orderReceiptView, sortingBox);
+        orderSummaryBox.setPadding(new Insets(0, 0, 10, 0));
+        root.getChildren().add(orderSummaryBox);
 
     }
+
 
     public void updateTotalLabel(String message) {
         this.totalLabel.setText("Total: " + message);
