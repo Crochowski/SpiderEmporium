@@ -59,7 +59,7 @@ public class SpiderApplication extends Application {
         orderView.setOrderController(orderController);
 
         // Get button references from view
-        orderController.retrieveButtons();
+        orderController.retrieveUIComponents();
 
         // Load customer and spider lists from model into view
         orderView.setAvailableCustomers(customerOps.getCustomerList());

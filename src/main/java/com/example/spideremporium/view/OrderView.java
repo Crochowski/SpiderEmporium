@@ -3,6 +3,7 @@ package com.example.spideremporium.view;
 import com.example.spideremporium.controller.OrderController;
 import com.example.spideremporium.model.Customer;
 import com.example.spideremporium.model.Spider;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -11,6 +12,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 /**
@@ -22,8 +25,8 @@ public class OrderView {
     private ComboBox<Customer> customerBox;
     private ComboBox<Spider> spiderBox;
     private ListView<Spider> checkOutView;
-    private ListView<Spider> receiptSpidersView;
-    private Button addBtn, removeBtn, purchaseBtn;
+    private ListView<Spider> orderReceiptView;
+    private Button addBtn, removeBtn, purchaseBtn, sortAZBtn, sortPriceBtn, newOrderBtn;
     private Label totalLabel, receiptCustomerLabel, receiptDateLabel;
 
     private ArrayList<Customer> availableCustomers;
@@ -77,6 +80,12 @@ public class OrderView {
         return this.purchaseBtn;
     }
 
+    public Button getSortAZBtn() { return this.sortAZBtn; }
+
+    public Button getSortPriceBtn() { return this.sortPriceBtn; }
+
+    public Button getNewOrderBtn() { return this.newOrderBtn; }
+
     public ComboBox<Spider> getSpiderBox() {
         return this.spiderBox;
     }
@@ -102,6 +111,7 @@ public class OrderView {
         this.addBtn = new Button("ADD");
         this.removeBtn = new Button("Remove Spider");
         this.purchaseBtn = new Button("Purchase");
+        this.newOrderBtn = new Button("New Order");
     }
 
     private void createHeading() {
@@ -173,24 +183,25 @@ public class OrderView {
         receiptCustomerLabel.setTextFill(Color.WHITE);
 
         // Create date label
-        Label orderDateLabel = new Label("Date: ");
-        orderDateLabel.setTextFill(Color.WHITE);
+        this.receiptDateLabel = new Label("Date: ");
+        receiptDateLabel.setTextFill(Color.WHITE);
 
         VBox customerAndDateBox = new VBox(5);
-        customerAndDateBox.getChildren().addAll(receiptCustomerLabel, orderDateLabel);
+        customerAndDateBox.getChildren().addAll(receiptCustomerLabel, receiptDateLabel);
         customerAndDateBox.setPadding(new Insets(0, 0, 0, 140));
 
         // ListView for spiders purchased this order
-        ListView<Spider> orderReceiptView = new ListView<>();
+        this.orderReceiptView = new ListView<>();
         orderReceiptView.setMaxWidth(320);
         orderReceiptView.setPrefHeight(150);
 
-        // Alphabetically Sort button
+        // Sort & new order buttons
         HBox sortingBox = new HBox(10);
         sortingBox.setAlignment(Pos.CENTER);
-        Button sortAZBtn = new Button("Sort A-Z");
-        Button sortPriceBtn = new Button("Sort Price");
-        sortingBox.getChildren().addAll(sortAZBtn, sortPriceBtn);
+        this.sortAZBtn = new Button("Sort A-Z");
+        this.sortPriceBtn = new Button("Sort Price");
+        sortingBox.getChildren().addAll(sortAZBtn, sortPriceBtn, newOrderBtn);
+
 
         orderSummaryBox.getChildren().addAll(customerAndDateBox, orderReceiptView, sortingBox);
         orderSummaryBox.setPadding(new Insets(0, 0, 10, 0));
@@ -214,4 +225,25 @@ public class OrderView {
         Alert alert = new Alert(Alert.AlertType.WARNING, "Select a customer and a spider!");
         alert.showAndWait();
     }
+
+    public void displayCustomerAndDate(Customer customer) {
+        this.receiptCustomerLabel.setText("Customer: " + customer.getfName() + " " + customer.getlName());
+        LocalDate today = LocalDate.now();
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+        String formattedDate = today.format(dateFormatter);
+        this.receiptDateLabel.setText("Date: " + formattedDate);
+    }
+
+    public void clearOrderComponents() {
+        this.receiptCustomerLabel.setText("Customer: ");
+        this.receiptDateLabel.setText("Date: ");
+        this.orderReceiptView.getItems().clear();
+    }
+
+    public void displayOrderReceiptInfo(ObservableList<Spider> selectedSpidersList) {
+        orderReceiptView.getItems().clear();
+        orderReceiptView.getItems().addAll(selectedSpidersList);
+    }
+
+
 }

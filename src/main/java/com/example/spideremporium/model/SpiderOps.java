@@ -54,7 +54,6 @@ public class SpiderOps {
                 }
 
                 spiderList.add(spider);                 // Add the new spider to spiderList
-                System.out.println(spiderList);
             }
 
         } catch (IOException error) {
@@ -71,10 +70,9 @@ public class SpiderOps {
         char spiderType = '0';
         Spider spider;
 
-        // Wipe the files to avoid spider duplication
+        // Wipe the file to avoid spider duplication
         try {
             new BufferedWriter(new FileWriter("database/spiders.txt")).close();
-            new BufferedWriter(new FileWriter("database/illegal.txt")).close();
         }
         catch (IOException error) {
             System.err.println("Cannot write to file");

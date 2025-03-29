@@ -7,12 +7,15 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
-import javafx.stage.Stage;
+
+import java.util.Comparator;
 
 public class OrderController {
+    private boolean isAscendingAlpha = true;
+    private boolean isAscendingPrice = false;
     private OrderView orderView;
     private OrderOps orderOps;
-    private Button addBtn, removeBtn, purchaseBtn;
+    private Button addBtn, removeBtn, purchaseBtn, sortAZBtn, sortPriceBtn, neworderBtn;
     private ComboBox<Spider> spiderBox;
     private ComboBox<Customer> customerBox;
     private ListView<Spider> checkoutView;
@@ -27,19 +30,27 @@ public class OrderController {
     }
 
 
-    public void retrieveButtons() {
+    public void retrieveUIComponents() {
         this.addBtn = orderView.getAddBtn();
         this.removeBtn = orderView.getRemoveBtn();
         this.purchaseBtn = orderView.getPurchaseBtn();
+        this.sortAZBtn = orderView.getSortAZBtn();
+        this.sortPriceBtn = orderView.getSortPriceBtn();
+        this.neworderBtn = orderView.getNewOrderBtn();
         this.spiderBox = orderView.getSpiderBox();
         this.customerBox = orderView.getCustomerBox();
         this.checkoutView = orderView.getCheckoutView();
+
     }
 
     public void setUpButtonActions() {
         addBtn.setOnAction(e -> addSpider());
         removeBtn.setOnAction(e -> removeSpider());
         purchaseBtn.setOnAction(e -> placeOrder());
+        sortAZBtn.setOnAction(e -> sortPurchasedSpiders(selectedSpidersList, true));
+        sortPriceBtn.setOnAction(e -> sortPurchasedSpiders(selectedSpidersList, false));
+        neworderBtn.setOnAction(e -> resetOrder());
+
     }
 
     public void addSpider() {
@@ -75,8 +86,9 @@ public class OrderController {
         // Make sure a customer is selected and has spiders in the basket
         if (selectedCustomer != null && !selectedSpidersList.isEmpty()) {
             orderOps.saveOrderToFile(selectedCustomer, total);
-            orderView.displayPurchaseConfirmation(selectedCustomer.getfName(), total);
-            resetOrder();
+            orderView.displayCustomerAndDate(selectedCustomer);
+            orderView.displayOrderReceiptInfo(selectedSpidersList);
+            checkoutView.setItems(FXCollections.observableArrayList());
         }
         else {
             orderView.displayItemNotSelectedWarning();
@@ -88,6 +100,35 @@ public class OrderController {
         total = 0.0;
         checkoutView.setItems(FXCollections.observableArrayList());
         customerBox.setDisable(false);
+        orderView.clearOrderComponents();
         orderView.updateTotalLabel("$0.00");
     }
+
+
+    public void sortPurchasedSpiders(ObservableList<Spider> selectedSpidersList, boolean isAlphaSort) {
+        if (isAlphaSort) {
+            isAscendingAlpha = !isAscendingAlpha;
+            if (isAscendingAlpha) {
+                FXCollections.sort(selectedSpidersList, Comparator.comparing(spider -> spider.getSpecies().toLowerCase()));
+            } else {
+                // if sorted a-z, sort z-a
+                FXCollections.sort(selectedSpidersList, Comparator.comparing((Spider spider) -> spider.getSpecies().toLowerCase()).reversed());
+            }
+        }
+
+        else {
+            isAscendingPrice = ! isAscendingPrice;
+            if (isAscendingPrice) {
+                FXCollections.sort(selectedSpidersList, Comparator.comparingDouble(Spider::getPrice));
+            }
+            else {
+                FXCollections.sort(selectedSpidersList, Comparator.comparingDouble(Spider::getPrice).reversed());
+            }
+        }
+
+        System.out.println(selectedSpidersList);
+        orderView.displayOrderReceiptInfo(selectedSpidersList);
+
+    }
+
 }
