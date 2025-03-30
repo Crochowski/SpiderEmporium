@@ -46,4 +46,11 @@ public class Order implements Serializable {
         }
     }
 
+    public String toString() {
+        return "OrderID: " + this.orderID + " Date: " + this.date + " Name: " + this.customer.getfName() + " " +
+        this.customer.getlName() + " Total: " + String.format("€%.2f", this.total);
+    }
+
+
+
     }

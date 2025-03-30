@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 
 public class OrderController {
@@ -15,7 +16,7 @@ public class OrderController {
     private boolean isAscendingPrice = false;
     private OrderView orderView;
     private OrderOps orderOps;
-    private Button addBtn, removeBtn, purchaseBtn, sortAZBtn, sortPriceBtn, neworderBtn;
+    private Button addBtn, removeBtn, purchaseBtn, sortAZBtn, sortPriceBtn, neworderBtn, viewOrdersBtn;
     private ComboBox<Spider> spiderBox;
     private ComboBox<Customer> customerBox;
     private ListView<Spider> checkoutView;
@@ -29,6 +30,10 @@ public class OrderController {
         this.orderOps = new OrderOps();
     }
 
+    public ArrayList<Order> getOrderList() {
+        return orderOps.getOrderList();
+    }
+
 
     public void retrieveUIComponents() {
         this.addBtn = orderView.getAddBtn();
@@ -37,6 +42,7 @@ public class OrderController {
         this.sortAZBtn = orderView.getSortAZBtn();
         this.sortPriceBtn = orderView.getSortPriceBtn();
         this.neworderBtn = orderView.getNewOrderBtn();
+        this.viewOrdersBtn = orderView.getViewOrdersBtn();
         this.spiderBox = orderView.getSpiderBox();
         this.customerBox = orderView.getCustomerBox();
         this.checkoutView = orderView.getCheckoutView();
@@ -50,6 +56,10 @@ public class OrderController {
         sortAZBtn.setOnAction(e -> sortPurchasedSpiders(selectedSpidersList, true));
         sortPriceBtn.setOnAction(e -> sortPurchasedSpiders(selectedSpidersList, false));
         neworderBtn.setOnAction(e -> resetOrder());
+        viewOrdersBtn.setOnAction(e -> {
+            orderOps.loadOrdersFromFile();
+            orderView.displayPastOrders();
+        });
 
     }
 

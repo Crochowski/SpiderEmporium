@@ -2,15 +2,19 @@ package com.example.spideremporium.view;
 
 import com.example.spideremporium.controller.OrderController;
 import com.example.spideremporium.model.Customer;
+import com.example.spideremporium.model.Order;
 import com.example.spideremporium.model.Spider;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -26,7 +30,7 @@ public class OrderView {
     private ComboBox<Spider> spiderBox;
     private ListView<Spider> checkOutView;
     private ListView<Spider> orderReceiptView;
-    private Button addBtn, removeBtn, purchaseBtn, sortAZBtn, sortPriceBtn, newOrderBtn;
+    private Button addBtn, removeBtn, purchaseBtn, sortAZBtn, sortPriceBtn, newOrderBtn, viewOrdersBtn;
     private Label totalLabel, receiptCustomerLabel, receiptDateLabel;
 
     private ArrayList<Customer> availableCustomers;
@@ -86,6 +90,9 @@ public class OrderView {
 
     public Button getNewOrderBtn() { return this.newOrderBtn; }
 
+    public Button getViewOrdersBtn() { return this.viewOrdersBtn;
+    }
+
     public ComboBox<Spider> getSpiderBox() {
         return this.spiderBox;
     }
@@ -112,6 +119,7 @@ public class OrderView {
         this.removeBtn = new Button("Remove Spider");
         this.purchaseBtn = new Button("Purchase");
         this.newOrderBtn = new Button("New Order");
+        this.viewOrdersBtn = new Button("View Order History");
     }
 
     public void changeBtnTxt(Button button, String text) {
@@ -204,7 +212,7 @@ public class OrderView {
         sortingBox.setAlignment(Pos.CENTER);
         this.sortAZBtn = new Button("Sort A-Z");
         this.sortPriceBtn = new Button("Sort Price \u2191");
-        sortingBox.getChildren().addAll(sortAZBtn, sortPriceBtn, newOrderBtn);
+        sortingBox.getChildren().addAll(sortAZBtn, sortPriceBtn, newOrderBtn, viewOrdersBtn);
 
 
         orderSummaryBox.getChildren().addAll(customerAndDateBox, orderReceiptView, sortingBox);
@@ -223,6 +231,25 @@ public class OrderView {
                 "Your total is $" + String.format("%.2f", total) + "\nEnjoy your new Spider friends!");
         alert.getButtonTypes().setAll(ButtonType.OK);
         alert.showAndWait();
+    }
+
+    public void displayPastOrders()  {
+        Stage pastOrderStage = new Stage();
+        pastOrderStage.setTitle("Past Orders");
+
+        ListView<Order> pastOrdersListView = new ListView<>();
+        ObservableList<Order> orderList = FXCollections.observableArrayList(orderController.getOrderList());
+        pastOrdersListView.setItems(orderList);
+
+        VBox pastOrdersLayout = new VBox(10);
+        pastOrdersLayout.getChildren().add(pastOrdersListView);
+
+        Scene scene = new Scene(pastOrdersLayout, 400, 400);
+        pastOrderStage.setScene(scene);
+        pastOrderStage.show();
+
+
+
     }
 
     public void displayItemNotSelectedWarning() {

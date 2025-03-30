@@ -94,6 +94,8 @@ public class SpiderApplication extends Application {
             }
         });
 
+        //OrderOps.wipeSerFile();
+
         stage.show();
     }
 

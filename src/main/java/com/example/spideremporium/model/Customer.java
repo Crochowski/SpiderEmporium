@@ -137,13 +137,13 @@ public class Customer implements Serializable {
 
 
     /**
-     * This function loads the next ID to be assigned to a customer from nextID.txt.<br>
+     * This function loads the next ID to be assigned to a customer from nextCustomerID.txt.<br>
      * @return - The last ID assigned, or 1 if the file fails to load.
      */
     public static int loadNextID() {
 
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("database/nextID.txt"));
+            BufferedReader reader = new BufferedReader(new FileReader("database/nextCustomerID.txt"));
             int nextID = Integer.parseInt(reader.readLine());
             return nextID;
         }
@@ -155,16 +155,16 @@ public class Customer implements Serializable {
 
 
     /**
-     * The function saves the next ID to be assigned to a customer to nextID.txt.
+     * The function saves the next ID to be assigned to a customer to nextCustomerID.txt.
      */
     public void saveNextID() {
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter("database/nextID.txt"));
+            BufferedWriter writer = new BufferedWriter(new FileWriter("database/nextCustomerID.txt"));
             writer.write(Integer.toString(nextId));
             writer.close();
         }
         catch (IOException error) {
-            System.err.println("Cannot write orderNo to file: " + error.getMessage());
+            System.err.println("Cannot write CustomerID to file: " + error.getMessage());
         }
     }
 

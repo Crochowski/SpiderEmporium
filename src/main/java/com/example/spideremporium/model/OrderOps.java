@@ -3,34 +3,68 @@ package com.example.spideremporium.model;
 import java.io.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 public class OrderOps {
+    private ArrayList<Order> orderList = new ArrayList<>();
+
+    public ArrayList<Order> getOrderList() {return this.orderList;}
+
+    /**
+     * This function loads orders from a file into the order list.<br>
+     */
+    public void loadOrdersFromFile() {
+        String fileName = "database/orders.ser";
+        orderList.clear();
+
+        try {
+            FileInputStream file = new FileInputStream(fileName);
+            ObjectInputStream in = new ObjectInputStream(file);
+
+            orderList = (ArrayList<Order>) in.readObject();
+            in.close();
+            file.close();
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Cannot load orders from file " + e.getMessage());
+        }
+    }
 
     /**
      * Saves the order to file
      */
     public void saveOrderToFile(Customer customer, double total) {
-        BufferedWriter writer = null;
-        String filename = "database/orders.txt";
+        Order order = new Order(customer, total);
+        String fileName = "database/orders.ser";
 
-        LocalDate todaysDate = LocalDate.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        String formattedDate = todaysDate.format(formatter);
+        loadOrdersFromFile();   // load existing orders to memory
+        orderList.add(order);   // append this order to that list
 
         try {
-            writer = new BufferedWriter(new FileWriter(filename, true));
-            writer.write(customer.getCustID() + "," + customer.getfName() + "," +
-                    customer.getlName() + "," + total + "," + formattedDate + "\n");
-        } catch (IOException e) {
-            System.out.println("Cannot save order to disk: " + e.getMessage());
-        } finally {
-            try {
-                if (writer != null) {
-                    writer.close();
-                }
-            } catch (IOException e) {
-                System.out.println("Cannot close writer: " + e.getMessage());
-            }
+            FileOutputStream file = new FileOutputStream(fileName);
+            ObjectOutputStream out = new ObjectOutputStream(file);
+
+            out.writeObject(orderList);
+            out.close();
+            file.close();
         }
+        catch (IOException e) {
+            System.out.println("Cannot save order to file: " + e.getMessage());
+        }
+    }
+
+    /**
+     * this method is for testing purposes, and just wipes the orders file.
+     */
+    public static void wipeSerFile() {
+
+        try {
+            File file = new File("database/orders.ser");
+            new FileOutputStream(file).close();
+            System.out.println("orders.ser wiped");
+        }
+    catch (IOException e) {
+        e.printStackTrace();
+    }
+
     }
 }
