@@ -10,6 +10,7 @@ import com.example.spideremporium.view.CustomerView;
 import com.example.spideremporium.view.OrderView;
 import com.example.spideremporium.view.SpiderView;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -81,6 +82,17 @@ public class SpiderApplication extends Application {
         customerController.setUpButtonActions(stage);
         spiderController.setUpButtonActions(stage);
         orderController.setUpButtonActions();
+
+
+        // Handle closing via stage x
+        stage.setOnCloseRequest(e -> {
+            boolean saveBeforeExit = customerView.showExitAlert();
+            if (saveBeforeExit) {
+                customerController.saveCustomers();
+                spiderController.saveSpiders();
+                Platform.exit();
+            }
+        });
 
         stage.show();
     }
