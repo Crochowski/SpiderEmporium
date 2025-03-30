@@ -16,6 +16,7 @@ public class CustomerOps {
 
     /**
      * This method adds a customer to customerList.
+     *
      * @param customer - The customer to be added.
      */
     public void addCustomer(Customer customer) {
@@ -25,6 +26,7 @@ public class CustomerOps {
 
     /**
      * This method removes a customer from customerList.
+     *
      * @param customer - The customer to be removed.
      */
     public void removeCustomer(Customer customer) {
@@ -36,29 +38,18 @@ public class CustomerOps {
      * This method loads the customers from customers.txt into the customerList.
      */
     public void loadCustomersFromFile() {
-        BufferedReader reader;
-        String fileName = "database/customers.txt";
+        String fileName = "database/customers.ser";
         customerList.clear();
 
         try {
-            reader = new BufferedReader(new FileReader(fileName));
-            String line;
+            FileInputStream file = new FileInputStream(fileName);
+            ObjectInputStream in = new ObjectInputStream(file);
 
-            while ((line = reader.readLine()) != null) {
-
-                String[] data = line.split(",");
-
-                int custID = Integer.parseInt(data[0]);
-                String fName = data[1];
-                String lName = data[2];
-                String address = data[3];
-
-                Customer customer = new Customer(custID, fName, lName, address);
-                customerList.add(customer);
-
-            }
-        } catch (IOException error) {
-            System.err.println("Cannot read customer from file: " + error.getMessage());
+            customerList = (ArrayList<Customer>) in.readObject();
+            in.close();
+            file.close();
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Cannot load customers from file: " + e.getMessage());
         }
     }
 
@@ -67,29 +58,17 @@ public class CustomerOps {
      * This function saves the customers from the customer list into customers.txt.
      */
     public void writeCustomersToFile() {
-        Writer customerWriter;
-        String customersFileName = "database/customers.txt";
-        String customerData = "";
-        Customer customer;
-
+        String fileName = "database/customers.ser";
         try {
-            new BufferedWriter(new FileWriter(customersFileName)).close(); // Wipe the file to avoid Customer duplication
+            FileOutputStream file = new FileOutputStream(fileName);
+            ObjectOutputStream out = new ObjectOutputStream(file);
 
-            customerWriter = new BufferedWriter(new FileWriter(customersFileName, true));
-
-            for (int i=0; i<customerList.size(); i++) {
-                customer = customerList.get(i);
-
-                customerData = customer.getCustID() + "," + customer.getfName() + "," + customer.getlName() +
-                        "," + customer.getAddress();
-
-                customerWriter.write(customerData + "\n");
-            }
-            customerWriter.close();
+            out.writeObject(customerList);
+            out.close();
+            file.close();
         }
-        catch (IOException error) {
-            System.err.println("Cannot write to file");
+        catch (IOException e) {
+            System.out.println("Cannot save customers to file: " + e.getMessage());
         }
     }
-
 }

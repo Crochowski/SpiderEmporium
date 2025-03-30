@@ -11,7 +11,7 @@ import javafx.scene.control.ListView;
 import java.util.Comparator;
 
 public class OrderController {
-    private boolean isAscendingAlpha = true;
+    private boolean isAscendingAlpha = false;
     private boolean isAscendingPrice = false;
     private OrderView orderView;
     private OrderOps orderOps;
@@ -110,25 +110,26 @@ public class OrderController {
             isAscendingAlpha = !isAscendingAlpha;
             if (isAscendingAlpha) {
                 FXCollections.sort(selectedSpidersList, Comparator.comparing(spider -> spider.getSpecies().toLowerCase()));
+                orderView.changeBtnTxt(sortAZBtn, "Sort Z-A");
             } else {
-                // if sorted a-z, sort z-a
                 FXCollections.sort(selectedSpidersList, Comparator.comparing((Spider spider) -> spider.getSpecies().toLowerCase()).reversed());
+                orderView.changeBtnTxt(sortAZBtn, "Sort A-Z");
             }
         }
 
         else {
-            isAscendingPrice = ! isAscendingPrice;
+            isAscendingPrice = !isAscendingPrice;
             if (isAscendingPrice) {
                 FXCollections.sort(selectedSpidersList, Comparator.comparingDouble(Spider::getPrice));
+                orderView.changeBtnTxt(sortPriceBtn, "Sort Price ↓");
             }
             else {
                 FXCollections.sort(selectedSpidersList, Comparator.comparingDouble(Spider::getPrice).reversed());
+                orderView.changeBtnTxt(sortPriceBtn, ("Sort Price ↑"));
             }
-        }
-
+                    }
         System.out.println(selectedSpidersList);
         orderView.displayOrderReceiptInfo(selectedSpidersList);
-
     }
 
 }

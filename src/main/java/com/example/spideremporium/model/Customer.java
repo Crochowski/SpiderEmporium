@@ -5,7 +5,7 @@ import java.io.*;
 /**
  * This class models a customer of the store.
  */
-public class Customer {
+public class Customer implements Serializable {
 
     private static int nextId;          // Stores the next ID to be assigned
     private int custID;                 // The customer's unique ID

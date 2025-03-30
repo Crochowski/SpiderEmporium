@@ -40,11 +40,6 @@ public class CustomerController {
         saveBtn.setOnAction(e-> saveCustomers());
         loadBtn.setOnAction(e-> loadCustomers());
         exitBtn.setOnAction(e-> exitApplication());
-
-        stage.setOnCloseRequest(e -> {  // Exit GUI via window x
-            e.consume();
-            exitApplication();
-        });
     }
 
     public void loadCustomers() {
@@ -59,7 +54,7 @@ public class CustomerController {
      */
     public void exitApplication() {
         boolean saveBeforeExit = customerView.showExitAlert();
-        if (saveBeforeExit) {
+        if (saveBeforeExit) {;
             customerOps.writeCustomersToFile();
         }
         Platform.exit();

@@ -1,9 +1,11 @@
 package com.example.spideremporium.model;
 
+import java.io.Serializable;
+
 /**
  * This class models a Spider<br>.
  */
-public abstract class Spider {
+public abstract class Spider implements Serializable {
 
     protected String species;       // The species of spider
     protected String type;          // The type of spider

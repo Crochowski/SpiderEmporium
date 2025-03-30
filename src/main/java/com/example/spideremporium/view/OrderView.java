@@ -114,6 +114,10 @@ public class OrderView {
         this.newOrderBtn = new Button("New Order");
     }
 
+    public void changeBtnTxt(Button button, String text) {
+        button.setText(text);
+    }
+
     private void createHeading() {
         VBox headingBox = new VBox();
         Label headingLabel = new Label("Spider Emporium \uD83D\uDD77");
@@ -199,7 +203,7 @@ public class OrderView {
         HBox sortingBox = new HBox(10);
         sortingBox.setAlignment(Pos.CENTER);
         this.sortAZBtn = new Button("Sort A-Z");
-        this.sortPriceBtn = new Button("Sort Price");
+        this.sortPriceBtn = new Button("Sort Price \u2191");
         sortingBox.getChildren().addAll(sortAZBtn, sortPriceBtn, newOrderBtn);
 
 

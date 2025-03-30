@@ -47,11 +47,6 @@ public class SpiderController {
         saveBtn.setOnAction(e -> saveSpiders());
         loadBtn.setOnAction(e -> loadSpiders());
         exitBtn.setOnAction(e -> exitApplication());
-
-        stage.setOnCloseRequest(e -> {  // Exit GUI via window x
-            e.consume();
-            exitApplication();
-        });
     }
 
     public void loadSpiders() {
