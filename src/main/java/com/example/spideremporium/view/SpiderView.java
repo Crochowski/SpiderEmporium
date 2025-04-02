@@ -153,7 +153,7 @@ public class SpiderView {
         HBox spiderViewBox = new HBox();
         spiderViewBox.setAlignment(Pos.CENTER);
         this.spiderListView = new ListView<>();
-        this.spiderListView.setPrefWidth(300);
+        this.spiderListView.setPrefWidth(350);
         this.spiderListView.setPrefHeight(200);
 
         spiderController.loadSpiders();

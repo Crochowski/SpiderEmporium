@@ -5,4 +5,5 @@ module com.example.spideremporium {
 
     opens com.example.spideremporium to javafx.fxml;
     exports com.example.spideremporium;
+    exports com.example.spideremporium.model;
 }

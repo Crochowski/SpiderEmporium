@@ -53,7 +53,6 @@ public class SpiderApplication extends Application {
         Tab orderTab = new Tab("Order Spiders");
         orderTab.setClosable(false);
 
-        OrderOps orderOps = new OrderOps();
         OrderView orderView = new OrderView();
         OrderController orderController = new OrderController(orderView);
 

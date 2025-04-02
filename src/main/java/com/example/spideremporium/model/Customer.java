@@ -29,9 +29,6 @@ public class Customer implements Serializable {
         this.fName = _fName;
         this.lName = _lName;
         this.address = _address;
-        this.isValued = false;      // New customer is not yet valued
-        this.isSensitive = false;   // New customer is not yet sensitive
-        totalSpidersPurchased = 0;  // New customer hasn't purchased any spiders yet
         this.custID = nextId;
         nextId++;
         saveNextID();               // Save the next ID assigned to files

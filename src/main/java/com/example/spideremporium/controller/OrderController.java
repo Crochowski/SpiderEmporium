@@ -66,10 +66,12 @@ public class OrderController {
     public void addSpider() {
         // Display alert if no customer or spider selected
         Customer selectedCustomer = customerBox.getValue();
+        // Lock the customer in after a spider is added
         customerBox.setDisable(true);
         Spider selectedSpider = spiderBox.getValue();
 
         if (selectedCustomer == null || selectedSpider == null) {
+            // Display warning if either customer or spider not selected
             orderView.displayItemNotSelectedWarning();
         }
         else {
@@ -95,6 +97,7 @@ public class OrderController {
         Customer selectedCustomer = customerBox.getValue();
         // Make sure a customer is selected and has spiders in the basket
         if (selectedCustomer != null && !selectedSpidersList.isEmpty()) {
+            // Save the order record to disk
             orderOps.saveOrderToFile(selectedCustomer, total);
             orderView.displayCustomerAndDate(selectedCustomer);
             orderView.displayOrderReceiptInfo(selectedSpidersList);
