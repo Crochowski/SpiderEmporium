@@ -4,7 +4,6 @@ import com.example.spideremporium.controller.CustomerController;
 import com.example.spideremporium.controller.OrderController;
 import com.example.spideremporium.controller.SpiderController;
 import com.example.spideremporium.model.CustomerOps;
-import com.example.spideremporium.model.OrderOps;
 import com.example.spideremporium.model.SpiderOps;
 import com.example.spideremporium.view.CustomerView;
 import com.example.spideremporium.view.OrderView;
@@ -33,7 +32,6 @@ public class SpiderApplication extends Application {
         // Connect the view and controller
         customerView.setCustomerController(customerController);
         customerController.setCustomerView(customerView);
-
         customerTab.setContent(customerView.getRoot());
 
         // Spider tab
@@ -72,7 +70,6 @@ public class SpiderApplication extends Application {
         tabPane.getTabs().add(orderTab);
         tabPane.getTabs().add(spiderTab);
 
-
         Scene scene = new Scene(tabPane, 600, 580);
         stage.setScene(scene);
         stage.setTitle("Spider Emporium \uD83D\uDD77\uFE0F");
@@ -82,14 +79,19 @@ public class SpiderApplication extends Application {
         spiderController.setUpButtonActions(stage);
         orderController.setUpButtonActions();
 
-
         // Handle closing via stage x
         stage.setOnCloseRequest(e -> {
-            boolean saveBeforeExit = customerView.showExitAlert();
-            if (saveBeforeExit) {
+            int saveBeforeExit = customerView.showExitAlert();
+            if (saveBeforeExit == 1) {
                 customerController.saveCustomers();
                 spiderController.saveSpiders();
                 Platform.exit();
+            }
+            else if (saveBeforeExit == 2) {
+                Platform.exit();
+            }
+            else {
+                e.consume();
             }
         });
 

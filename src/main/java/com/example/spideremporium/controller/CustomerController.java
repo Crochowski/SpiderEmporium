@@ -53,11 +53,14 @@ public class CustomerController {
      * This method exits the application after verifying whether the customer wants to save, not save, or cancel exiting.
      */
     public void exitApplication() {
-        boolean saveBeforeExit = customerView.showExitAlert();
-        if (saveBeforeExit) {;
+        int saveBeforeExit = customerView.showExitAlert();
+        if (saveBeforeExit == 1) {;
             customerOps.writeCustomersToFile();
+            Platform.exit();
         }
-        Platform.exit();
+        else if (saveBeforeExit == 2) {
+            Platform.exit();
+        }
     }
 
     /**

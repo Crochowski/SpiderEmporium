@@ -152,7 +152,7 @@ public class CustomerView {
 
     }
 
-    public boolean showExitAlert() {
+    public int showExitAlert() {
         Alert exitAlert = new Alert(Alert.AlertType.CONFIRMATION);
         exitAlert.setTitle("Exit?");
         exitAlert.setHeaderText("Save before exiting?");
@@ -161,11 +161,21 @@ public class CustomerView {
         ButtonType yesBtn = new ButtonType("Yes", ButtonBar.ButtonData.YES);
         ButtonType noBtn = new ButtonType("No", ButtonBar.ButtonData.NO);
         ButtonType cancelBtn = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
-
         exitAlert.getButtonTypes().setAll(yesBtn, noBtn, cancelBtn);
 
         Optional<ButtonType> result = exitAlert.showAndWait();
-        return result.isPresent() && result.get().equals(yesBtn);
+        if (result.isPresent()) {
+            if (result.get().equals(yesBtn)) {
+                return 1;
+            }
+            else if (result.get().equals(noBtn)) {
+                return 2;
+            }
+            else if (result.get().equals(cancelBtn)) {
+                return 3;
+            }
+            }
+        return 3;
     }
 
     /**

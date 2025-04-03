@@ -214,11 +214,9 @@ public class OrderView {
         this.sortPriceBtn = new Button("Sort Price \u2191");
         sortingBox.getChildren().addAll(sortAZBtn, sortPriceBtn, newOrderBtn, viewOrdersBtn);
 
-
         orderSummaryBox.getChildren().addAll(customerAndDateBox, orderReceiptView, sortingBox);
         orderSummaryBox.setPadding(new Insets(0, 0, 10, 0));
         root.getChildren().add(orderSummaryBox);
-
     }
 
 

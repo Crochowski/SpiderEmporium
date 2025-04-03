@@ -100,6 +100,8 @@ public class OrderController {
             // Save the order record to disk
             orderOps.saveOrderToFile(selectedCustomer, total);
             orderView.displayCustomerAndDate(selectedCustomer);
+            // Sort spiders alphabetically and display
+            FXCollections.sort(selectedSpidersList, Comparator.comparing(spider -> spider.getSpecies().toLowerCase()));
             orderView.displayOrderReceiptInfo(selectedSpidersList);
             checkoutView.setItems(FXCollections.observableArrayList());
         }
@@ -141,7 +143,6 @@ public class OrderController {
                 orderView.changeBtnTxt(sortPriceBtn, ("Sort Price ↑"));
             }
                     }
-        System.out.println(selectedSpidersList);
         orderView.displayOrderReceiptInfo(selectedSpidersList);
     }
 

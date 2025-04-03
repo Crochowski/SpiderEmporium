@@ -33,7 +33,6 @@ public final class IllegalSpider extends VenomousSpider {
         }
 
         this.type = "Illegal";
-        System.out.println("This spider is " + this.type);
 
     }
 

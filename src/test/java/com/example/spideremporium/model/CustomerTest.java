@@ -6,6 +6,11 @@ import static org.junit.Assert.*;
 
 public class CustomerTest {
 
+
+    /**
+     * This method tests the Customer constructor, ensuring the correct values
+     * are set for the customer object.
+     */
     @Test
     public void validCustomerCreation() {
         String fName = "Kaladin";
