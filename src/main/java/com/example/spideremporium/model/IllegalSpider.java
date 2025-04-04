@@ -16,10 +16,11 @@ public final class IllegalSpider extends VenomousSpider {
     public IllegalSpider(
                          String _species,
                          int _venomPotency,
-                         float _price) {
+                         float _price,
+                         int _stockCount) {
         super(_species,
                 _venomPotency,
-                _price);
+                _price, _stockCount);
 
 
         if (this.venomPotency == 1) {
@@ -47,11 +48,13 @@ public final class IllegalSpider extends VenomousSpider {
                          String _species,
                          int _venomPotency,
                          float _price,
-                         String _risk) {
+                         String _risk,
+                         int _stockCount) {
 
         super(_species,
                 _venomPotency,
-                _price);
+                _price,
+                _stockCount);
 
         this.risk = _risk;
     }

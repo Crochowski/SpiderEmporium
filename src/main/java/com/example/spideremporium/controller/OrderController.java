@@ -34,7 +34,6 @@ public class OrderController {
         return orderOps.getOrderList();
     }
 
-
     public void retrieveUIComponents() {
         this.addBtn = orderView.getAddBtn();
         this.removeBtn = orderView.getRemoveBtn();

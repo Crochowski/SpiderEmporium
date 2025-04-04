@@ -14,11 +14,12 @@ import java.util.Optional;
 
 public class SpiderView {
     private VBox root;
+    private int stockCount = 1;
     private SpiderController spiderController;
     private TextField speciesData, priceData;
     private ComboBox<String> potencyBox;
-    private Label infoLabel;
-    private Button addBtn, removeBtn, listBtn, loadBtn, saveBtn, exitBtn;
+    private Label infoLabel, stockLabel;
+    private Button addBtn, removeBtn, listBtn, loadBtn, saveBtn, exitBtn, stockBtn, counterBtn;
     private ListView<Spider> spiderListView;
     private ToggleGroup typeGroup;
 
@@ -78,8 +79,22 @@ public class SpiderView {
         return this.spiderListView;
     }
 
-    public void updateInfoText(String info) {
-        this.infoLabel.setText(info);
+    public int getStockCount() { return this.stockCount;}
+
+    public Button getStockBtn() { return this.stockBtn;}
+
+    public Button getCounterBtn() {return this.counterBtn;}
+
+    public void updateInfoText(String info) {this.infoLabel.setText(info);}
+
+    public void incrementStockCounter() {
+        stockCount++;
+        this.counterBtn.setText(String.valueOf(stockCount) + "+");
+    }
+
+    public void resetStockCount() {
+        this.stockCount = 1;
+        this.counterBtn.setText(String.valueOf(stockCount) + "+");
     }
 
     public void createHeading() {
@@ -139,7 +154,9 @@ public class SpiderView {
         potencyBox.getItems().addAll("1", "2", "3");
         potencyBox.setPromptText("Venom Potency");
 
-        selectionBox.getChildren().addAll(radioBox, potencyBox);
+        this.counterBtn = new Button(String.valueOf(stockCount) + "+");
+
+        selectionBox.getChildren().addAll(radioBox, potencyBox, counterBtn);
 
         topSection.getChildren().addAll(tfBox, selectionBox);
         root.getChildren().add(topSection);
@@ -224,6 +241,15 @@ public class SpiderView {
         maintenanceOptionsBox.setAlignment(Pos.CENTER);
         maintenanceOptionsBox.setPadding(new Insets(0, 0, 10, 0));
         root.getChildren().add(maintenanceOptionsBox);
+
+        HBox stockBox = new HBox(20);
+        this.stockBtn = new Button("Check Stock");
+        this.stockLabel = new Label("Stock: ");
+        this.stockLabel.setTextFill(Color.RED);
+        stockBox.getChildren().addAll(stockBtn, stockLabel);
+        stockBox.setAlignment(Pos.CENTER);
+        root.getChildren().add(stockBox);
+
     }
 
     public void createInfoLabel() {
@@ -242,5 +268,9 @@ public class SpiderView {
         createListView();
         createButtons();
         createInfoLabel();
+    }
+
+    public void displayStockNum(int stockNo) {
+        this.stockLabel.setText("Stock: " + stockNo);
     }
 }

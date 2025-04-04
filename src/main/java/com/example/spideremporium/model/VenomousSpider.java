@@ -13,8 +13,8 @@ public class VenomousSpider extends Spider {
      * @param _venomPotency - The venom potency of the spider.
      * @param _price - The price of the spider.
      */
-    public VenomousSpider(String _species, int _venomPotency, float _price) {
-        super(_species, _price);
+    public VenomousSpider(String _species, int _venomPotency, float _price, int _stockCount) {
+        super(_species, _price, _stockCount);
         this.venomPotency = _venomPotency;
         this.type = "Venomous";
     }
@@ -31,15 +31,5 @@ public class VenomousSpider extends Spider {
     public String toString() {
         return this.species + " | " + this.type + " | $" + this.price + " | Potency: " + this.venomPotency;
     }
-
-
-
-
-
-
-
-
-
-
 
 }

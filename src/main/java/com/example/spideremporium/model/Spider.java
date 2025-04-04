@@ -10,15 +10,17 @@ public abstract class Spider implements Serializable {
     protected String species;       // The species of spider
     protected String type;          // The type of spider
     protected float price;          // The price of the spider
+    protected int stockCount;
 
 
     /**
      * This constructor creates 1 instance of the class Spider<br>
      * @param _species - The species of the spider.
      */
-    public Spider(String _species, float _price) {
+    public Spider(String _species, float _price, int _stockCount) {
         this.species = _species;
         this.price = _price;
+        this.stockCount = _stockCount;
     }
 
 
@@ -46,6 +48,10 @@ public abstract class Spider implements Serializable {
      */
     public float getPrice() {
         return this.price;
+    }
+
+    public int getStockCount() {
+        return this.stockCount;
     }
 
     public void setType(String _type) {

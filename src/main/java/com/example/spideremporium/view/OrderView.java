@@ -224,13 +224,6 @@ public class OrderView {
         this.totalLabel.setText("Total: " + message);
     }
 
-    public void displayPurchaseConfirmation(String customerName, double total) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Thank you " + customerName + "!\n" +
-                "Your total is $" + String.format("%.2f", total) + "\nEnjoy your new Spider friends!");
-        alert.getButtonTypes().setAll(ButtonType.OK);
-        alert.showAndWait();
-    }
-
     public void displayPastOrders()  {
         Stage pastOrderStage = new Stage();
         pastOrderStage.setTitle("Past Orders");
@@ -245,9 +238,6 @@ public class OrderView {
         Scene scene = new Scene(pastOrdersLayout, 400, 400);
         pastOrderStage.setScene(scene);
         pastOrderStage.show();
-
-
-
     }
 
     public void displayItemNotSelectedWarning() {
@@ -273,6 +263,5 @@ public class OrderView {
         orderReceiptView.getItems().clear();
         orderReceiptView.getItems().addAll(selectedSpidersList);
     }
-
 
 }

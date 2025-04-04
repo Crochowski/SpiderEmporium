@@ -51,6 +51,4 @@ public class Order implements Serializable {
         this.customer.getlName() + " Total: " + String.format("€%.2f", this.total);
     }
 
-
-
-    }
+}

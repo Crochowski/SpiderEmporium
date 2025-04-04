@@ -14,10 +14,14 @@ public class SpiderController {
     private TextField speciesData, priceData;
     private ToggleGroup typeGroup;
     private ComboBox<String> potencyData;
-    private Button addBtn, removeBtn, listBtn, saveBtn, loadBtn, exitBtn;
+    private Button addBtn, removeBtn, listBtn, saveBtn, loadBtn, exitBtn, counterBtn, stockBtn;
 
     public SpiderController(SpiderOps _spiderOps) {
         this.spiderOps = _spiderOps; // Connect to the model
+    }
+
+    public ArrayList<Spider> getSpiderList() {
+        return spiderOps.getSpiderList();
     }
 
     // Set the view and retrieve references to components
@@ -38,6 +42,8 @@ public class SpiderController {
         this.saveBtn = spiderView.getSaveBtn();
         this.loadBtn = spiderView.getLoadBtn();
         this.exitBtn = spiderView.getExitBtn();
+        this.counterBtn = spiderView.getCounterBtn();
+        this.stockBtn = spiderView.getStockBtn();
     }
 
     public void setUpButtonActions(Stage stage) {
@@ -47,6 +53,8 @@ public class SpiderController {
         saveBtn.setOnAction(e -> saveSpiders());
         loadBtn.setOnAction(e -> loadSpiders());
         exitBtn.setOnAction(e -> exitApplication());
+        counterBtn.setOnAction(e -> incrementStockCount());
+        stockBtn.setOnAction(e -> viewStock());
     }
 
     public void loadSpiders() {
@@ -62,7 +70,6 @@ public class SpiderController {
             spiderOps.writeSpidersToFile();
         }
         Platform.exit();
-
     }
 
     public void addSpider() {
@@ -76,20 +83,23 @@ public class SpiderController {
             RadioButton selectedType = (RadioButton) this.typeGroup.getSelectedToggle();
             String type = selectedType.getText();
             int potency = Integer.parseInt(this.potencyData.getValue());
+            int stock = spiderView.getStockCount();
 
             if (type.equals("Venomous")) {
-                VenomousSpider venomousSpider = new VenomousSpider(species, potency, price);
+                VenomousSpider venomousSpider = new VenomousSpider(species, potency, price, stock);
                 spiderOps.addSpider(venomousSpider);
                 spiderView.updateInfoText("Venomous Spider added.");
             }
             else if (type.equals("Illegal")) {
-                IllegalSpider illegalSpider = new IllegalSpider(species, potency, price);
+                IllegalSpider illegalSpider = new IllegalSpider(species, potency, price, stock);
                 spiderOps.addSpider(illegalSpider);
                 spiderView.updateInfoText("Illegal Spider added.");
             }
 
-            // Clear the textfields & dropdown
+            // Clear the textfields & dropdown and reset the stock count
             spiderView.clearFields();
+            spiderView.resetStockCount();
+
         }
         else {
             // Otherwise display the empty field alert
@@ -116,7 +126,16 @@ public class SpiderController {
         spiderView.updateInfoText("Spiders saved.");
     }
 
-    public ArrayList<Spider> getSpiderList() {
-        return spiderOps.getSpiderList();
+    public void incrementStockCount() {
+        spiderView.incrementStockCounter();
     }
+
+    public void viewStock() {
+        Spider spider = spiderListView.getSelectionModel().getSelectedItem();
+        if (spider != null) {
+            spiderView.displayStockNum(spider.getStockCount());
+        }
+
+    }
+
 }

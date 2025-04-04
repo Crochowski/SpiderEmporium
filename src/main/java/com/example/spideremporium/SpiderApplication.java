@@ -4,6 +4,7 @@ import com.example.spideremporium.controller.CustomerController;
 import com.example.spideremporium.controller.OrderController;
 import com.example.spideremporium.controller.SpiderController;
 import com.example.spideremporium.model.CustomerOps;
+import com.example.spideremporium.model.OrderOps;
 import com.example.spideremporium.model.SpiderOps;
 import com.example.spideremporium.view.CustomerView;
 import com.example.spideremporium.view.OrderView;
@@ -95,7 +96,8 @@ public class SpiderApplication extends Application {
             }
         });
 
-        //OrderOps.wipeSerFile();
+//        OrderOps orderOps = new OrderOps();
+//        OrderOps.wipeSerFile();
 
         stage.show();
     }

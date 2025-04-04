@@ -66,5 +66,14 @@ public class OrderOps {
         e.printStackTrace();
     }
 
+        try {
+            File file = new File("database/spiders.ser");
+            new FileOutputStream(file).close();
+            System.out.println("spiders.ser wiped");
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }

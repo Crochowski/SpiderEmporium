@@ -12,7 +12,7 @@ public class VenomousSpiderTest {
      */
     @Test
     public void validVenomousSpiderCreation() {
-        VenomousSpider vSpider = new VenomousSpider("Vicious Tarantula", 3, 200);
+        VenomousSpider vSpider = new VenomousSpider("Vicious Tarantula", 3, 200, 5);
 
         assertEquals("Vicious Tarantula", vSpider.getSpecies());
         assertEquals(3, vSpider.getVenomPotency());
