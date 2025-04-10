@@ -59,7 +59,7 @@ public class SpiderController {
     }
 
     public void loadSpiders() {
-        serializationManager.loadSpidersFromFile(spiderOps);
+        serializationManager.deSerializeFile(spiderOps.getSpiderList(), Spider.class);
         if (spiderView != null) {
             spiderView.updateInfoText("Spiders loaded.");
         }
@@ -68,7 +68,7 @@ public class SpiderController {
     public void exitApplication() {
         boolean saveBeforeExit = spiderView.showExitAlert();
         if (saveBeforeExit) {
-            serializationManager.writeSpidersToFile(spiderOps);
+            serializationManager.serializeFile(spiderOps.getSpiderList(), Spider.class);
         }
         Platform.exit();
     }
@@ -123,7 +123,7 @@ public class SpiderController {
     }
 
     public void saveSpiders() {
-        serializationManager.writeSpidersToFile(spiderOps);
+        serializationManager.serializeFile(spiderOps.getSpiderList(), Spider.class);
         spiderView.updateInfoText("Spiders saved.");
     }
 

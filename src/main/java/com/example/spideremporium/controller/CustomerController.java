@@ -44,7 +44,7 @@ public class CustomerController {
     }
 
     public void loadCustomers() {
-        serializationManager.loadCustomersFromFile(customerOps);
+        serializationManager.deSerializeFile(customerOps.getCustomerList(), Customer.class);
         if (customerView != null) {
             customerView.updateInfoText("Customers loaded.");
         }
@@ -56,7 +56,7 @@ public class CustomerController {
     public void exitApplication() {
         int saveBeforeExit = customerView.showExitAlert();
         if (saveBeforeExit == 1) {;
-            serializationManager.writeCustomersToFile(customerOps);
+            serializationManager.serializeFile(customerOps.getCustomerList(), Customer.class);
             Platform.exit();
         }
         else if (saveBeforeExit == 2) {
@@ -99,7 +99,7 @@ public class CustomerController {
     }
 
     public void saveCustomers() {
-        serializationManager.writeCustomersToFile(customerOps);
+        serializationManager.serializeFile(customerOps.getCustomerList(), Customer.class);
         customerView.updateInfoText("Customers saved.");
     }
 

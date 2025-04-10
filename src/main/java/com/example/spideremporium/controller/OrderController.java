@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Comparator;
 
@@ -22,6 +23,8 @@ public class OrderController {
     private ListView<Spider> checkoutView;
     private ObservableList<Spider> selectedSpidersList;
     private double total;
+    private SerializationManager serializationManager = SerializationManager.getSerializationManager();
+
 
     public OrderController(OrderView _orderView) {
         this.orderView = _orderView;
@@ -56,7 +59,7 @@ public class OrderController {
         sortPriceBtn.setOnAction(e -> sortPurchasedSpiders(selectedSpidersList, false));
         neworderBtn.setOnAction(e -> resetOrder());
         viewOrdersBtn.setOnAction(e -> {
-            orderOps.loadOrdersFromFile();
+            loadOrdersFromFile();
             orderView.displayPastOrders();
         });
 
@@ -97,7 +100,8 @@ public class OrderController {
         // Make sure a customer is selected and has spiders in the basket
         if (selectedCustomer != null && !selectedSpidersList.isEmpty()) {
             // Save the order record to disk
-            orderOps.saveOrderToFile(selectedCustomer, total);
+            Order order = new Order(selectedCustomer, total);
+            saveOrderToFile(order);
             orderView.displayCustomerAndDate(selectedCustomer);
             // Sort spiders alphabetically and display
             FXCollections.sort(selectedSpidersList, Comparator.comparing(spider -> spider.getSpecies().toLowerCase()));
@@ -143,6 +147,22 @@ public class OrderController {
             }
                     }
         orderView.displayOrderReceiptInfo(selectedSpidersList);
+    }
+
+    /**
+     * This function loads orders from a file into the order list.<br>
+     */
+    public void loadOrdersFromFile() {
+       serializationManager.deSerializeFile(orderOps.getOrderList(), Order.class);
+    }
+
+    /**
+     * Saves the order to file
+     */
+    public void saveOrderToFile(Order order) {
+        loadOrdersFromFile();
+        orderOps.getOrderList().add(order);
+        serializationManager.serializeFile(orderOps.getOrderList(), Order.class);
     }
 
 }
