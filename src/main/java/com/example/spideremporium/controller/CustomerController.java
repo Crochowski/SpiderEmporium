@@ -13,6 +13,7 @@ import java.util.ArrayList;
  */
 public class CustomerController {
     private CustomerOps customerOps;
+    private SerializationManager serializationManager = SerializationManager.getSerializationManager();
     private CustomerView customerView;
     private Button addBtn, removeBtn, listBtn, saveBtn, loadBtn, exitBtn;
 
@@ -43,7 +44,7 @@ public class CustomerController {
     }
 
     public void loadCustomers() {
-        customerOps.loadCustomersFromFile();
+        serializationManager.loadCustomersFromFile(customerOps);
         if (customerView != null) {
             customerView.updateInfoText("Customers loaded.");
         }
@@ -55,7 +56,7 @@ public class CustomerController {
     public void exitApplication() {
         int saveBeforeExit = customerView.showExitAlert();
         if (saveBeforeExit == 1) {;
-            customerOps.writeCustomersToFile();
+            serializationManager.writeCustomersToFile(customerOps);
             Platform.exit();
         }
         else if (saveBeforeExit == 2) {
@@ -71,8 +72,9 @@ public class CustomerController {
         String fname = customerView.getFnameData();     // Save data from text fields
         String lname = customerView.getLnameData();
         String address = customerView.getAddressData();
-        if (!fname.isBlank() && !lname.isBlank() && !address.isBlank()) {
-            Customer customer = new Customer(fname, lname, address);    // Create customer
+        String phone = customerView.getPhoneData();
+        if (!fname.isBlank() && !lname.isBlank() && !address.isBlank() && !phone.isBlank()) {
+            Customer customer = new Customer(fname, lname, address, phone);    // Create customer
             customerOps.addCustomer(customer);  // Add customer to list
 
             customerView.updateInfoText("Customer added.");
@@ -97,7 +99,7 @@ public class CustomerController {
     }
 
     public void saveCustomers() {
-        customerOps.writeCustomersToFile();
+        serializationManager.writeCustomersToFile(customerOps);
         customerView.updateInfoText("Customers saved.");
     }
 

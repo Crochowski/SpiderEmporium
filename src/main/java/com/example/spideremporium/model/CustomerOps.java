@@ -7,6 +7,7 @@ import java.util.ArrayList;
  * This class models operations such as adding and removing Customer objects from a list.
  */
 public class CustomerOps {
+
     private ArrayList<Customer> customerList = new ArrayList<>();
 
     public ArrayList<Customer> getCustomerList() {
@@ -33,42 +34,4 @@ public class CustomerOps {
         customerList.remove(customer);
     }
 
-
-    /**
-     * This method loads the customers from customers.txt into the customerList.
-     */
-    public void loadCustomersFromFile() {
-        String fileName = "database/customers.ser";
-        customerList.clear();
-
-        try {
-            FileInputStream file = new FileInputStream(fileName);
-            ObjectInputStream in = new ObjectInputStream(file);
-
-            customerList = (ArrayList<Customer>) in.readObject();
-            in.close();
-            file.close();
-        } catch (IOException | ClassNotFoundException e) {
-            System.out.println("Cannot load customers from file: " + e.getMessage());
-        }
-    }
-
-
-    /**
-     * This function saves the customers from the customer list into customers.txt.
-     */
-    public void writeCustomersToFile() {
-        String fileName = "database/customers.ser";
-        try {
-            FileOutputStream file = new FileOutputStream(fileName);
-            ObjectOutputStream out = new ObjectOutputStream(file);
-
-            out.writeObject(customerList);
-            out.close();
-            file.close();
-        }
-        catch (IOException e) {
-            System.out.println("Cannot save customers to file: " + e.getMessage());
-        }
-    }
 }

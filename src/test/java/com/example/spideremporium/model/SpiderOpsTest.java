@@ -15,8 +15,4 @@ public class SpiderOpsTest {
         spiderOps.loadSpidersFromFile();
         assertFalse(spiderOps.getSpiderList().isEmpty());
     }
-
-
-
-
 }

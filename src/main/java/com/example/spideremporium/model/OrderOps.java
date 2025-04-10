@@ -51,29 +51,5 @@ public class OrderOps {
             System.out.println("Cannot save order to file: " + e.getMessage());
         }
     }
-
-    /**
-     * this method is for testing purposes, and just wipes the orders file.
-     */
-    public static void wipeSerFile() {
-
-        try {
-            File file = new File("database/orders.ser");
-            new FileOutputStream(file).close();
-            System.out.println("orders.ser wiped");
-        }
-    catch (IOException e) {
-        e.printStackTrace();
-    }
-
-        try {
-            File file = new File("database/spiders.ser");
-            new FileOutputStream(file).close();
-            System.out.println("spiders.ser wiped");
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
+    
 }

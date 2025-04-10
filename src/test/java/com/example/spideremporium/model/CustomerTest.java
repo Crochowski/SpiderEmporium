@@ -16,8 +16,9 @@ public class CustomerTest {
         String fName = "Kaladin";
         String lName = "Stormblessed";
         String address = "Hearthstone";
+        String phone = "0876463845";
 
-        Customer customer = new Customer(fName, lName, address);
+        Customer customer = new Customer(fName, lName, address, phone);
         assertEquals(fName, customer.getfName());
         assertEquals(lName, customer.getlName());
         assertEquals(address, customer.getAddress());

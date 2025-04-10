@@ -1,10 +1,9 @@
-package com.example.spideremporium;
+package com.example.spideremporium.main;
 
 import com.example.spideremporium.controller.CustomerController;
 import com.example.spideremporium.controller.OrderController;
 import com.example.spideremporium.controller.SpiderController;
 import com.example.spideremporium.model.CustomerOps;
-import com.example.spideremporium.model.OrderOps;
 import com.example.spideremporium.model.SpiderOps;
 import com.example.spideremporium.view.CustomerView;
 import com.example.spideremporium.view.OrderView;
@@ -26,7 +25,7 @@ public class SpiderApplication extends Application {
         Tab customerTab = new Tab("Customers");
         customerTab.setClosable(false);
 
-        CustomerOps customerOps = new CustomerOps();
+        CustomerOps customerOps = new CustomerOps();   // Get the singleton customerOps
         CustomerView customerView = new CustomerView();
         CustomerController customerController = new CustomerController(customerOps);
 
@@ -95,9 +94,6 @@ public class SpiderApplication extends Application {
                 e.consume();
             }
         });
-
-//        OrderOps orderOps = new OrderOps();
-//        OrderOps.wipeSerFile();
 
         stage.show();
     }

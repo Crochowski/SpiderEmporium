@@ -12,6 +12,7 @@ public class Customer implements Serializable {
     private String fName;               // The customer's first name
     private String lName;               // The customer's last name
     private String address;             // The customer's address
+    private String phone;
     private boolean isValued;           // A customer is valued if they have purchased more than 2 spiders
     private boolean isSensitive;        // The customer is sensitive if they have ever purchased an illegal spider
     private int totalSpidersPurchased;  // The total number of spiders a customer has ever purchased
@@ -25,10 +26,11 @@ public class Customer implements Serializable {
      * @param _fName - The customer's first name
      * @param _lName - The customer's last name
      */
-    public Customer(String _fName, String _lName, String _address) {
+    public Customer(String _fName, String _lName, String _address, String _phone) {
         this.fName = _fName;
         this.lName = _lName;
         this.address = _address;
+        this.phone = _phone;
         this.custID = nextId;
         nextId++;
         saveNextID();               // Save the next ID assigned to files
@@ -82,6 +84,8 @@ public class Customer implements Serializable {
      * @return The address of the customer.
      */
     public String getAddress() { return this.address; }
+
+    public String getPhone() { return this.phone; }
 
 
     /**
@@ -171,6 +175,6 @@ public class Customer implements Serializable {
      * @return - The concatenated string representing a customer object.
      */
     public String toString() {
-        return this.custID + " | " + this.fName + " " + this.getlName() + " | " + this.address;
+        return this.custID + " | " + this.fName + " " + this.getlName() + " | " + this.address + "| " + this.phone;
     }
 }

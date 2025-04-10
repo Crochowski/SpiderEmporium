@@ -15,7 +15,7 @@ import java.util.Optional;
 public class CustomerView {
     private VBox root;
     private CustomerController customerController;
-    private TextField fnameData, lnameData, addressData;
+    private TextField fnameData, lnameData, addressData, phoneData;
     private Label infoLabel;
     private Button addBtn, removeBtn, listBtn, loadBtn, saveBtn, exitBtn;
     private ListView<Customer> customerDisplay;
@@ -68,6 +68,8 @@ public class CustomerView {
         return this.addressData.getText();
     }
 
+    public String getPhoneData() {return this.phoneData.getText(); }
+
     public void updateInfoText(String info) {
         this.infoLabel.setText(info);
     }
@@ -116,6 +118,14 @@ public class CustomerView {
         this.addressData = new TextField();
         addressBox.getChildren().addAll(addressLabel, addressData);
         root.getChildren().add(addressBox);
+
+        HBox phoneBox = new HBox(40);
+        Label phoneLabel = new Label("Phone: ");
+        phoneBox.setAlignment(Pos.CENTER);
+        phoneLabel.setTextFill(Color.YELLOW);
+        this.phoneData = new TextField();
+        phoneBox.getChildren().addAll(phoneLabel, phoneData);
+        root.getChildren().add(phoneBox);
     }
 
 

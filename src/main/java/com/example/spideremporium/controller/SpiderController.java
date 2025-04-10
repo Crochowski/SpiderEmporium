@@ -15,6 +15,7 @@ public class SpiderController {
     private ToggleGroup typeGroup;
     private ComboBox<String> potencyData;
     private Button addBtn, removeBtn, listBtn, saveBtn, loadBtn, exitBtn, counterBtn, stockBtn;
+    private SerializationManager serializationManager = SerializationManager.getSerializationManager();
 
     public SpiderController(SpiderOps _spiderOps) {
         this.spiderOps = _spiderOps; // Connect to the model
@@ -58,7 +59,7 @@ public class SpiderController {
     }
 
     public void loadSpiders() {
-        spiderOps.loadSpidersFromFile();
+        serializationManager.loadSpidersFromFile(spiderOps);
         if (spiderView != null) {
             spiderView.updateInfoText("Spiders loaded.");
         }
@@ -67,7 +68,7 @@ public class SpiderController {
     public void exitApplication() {
         boolean saveBeforeExit = spiderView.showExitAlert();
         if (saveBeforeExit) {
-            spiderOps.writeSpidersToFile();
+            serializationManager.writeSpidersToFile(spiderOps);
         }
         Platform.exit();
     }
@@ -122,7 +123,7 @@ public class SpiderController {
     }
 
     public void saveSpiders() {
-        spiderOps.writeSpidersToFile();
+        serializationManager.writeSpidersToFile(spiderOps);
         spiderView.updateInfoText("Spiders saved.");
     }
 
