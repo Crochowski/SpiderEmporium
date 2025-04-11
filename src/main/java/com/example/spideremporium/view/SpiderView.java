@@ -173,9 +173,7 @@ public class SpiderView {
         this.spiderListView.setPrefWidth(350);
         this.spiderListView.setPrefHeight(200);
 
-        spiderController.loadSpiders();
         this.spiderListView.setItems(spiderController.getSpiderList());
-        //this.spiderListView.getItems().addAll(spiderController.getSpiderList());
 
         spiderViewBox.getChildren().add(spiderListView);
         root.getChildren().add(spiderViewBox);

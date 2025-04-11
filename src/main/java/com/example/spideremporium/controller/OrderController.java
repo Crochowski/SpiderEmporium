@@ -1,5 +1,6 @@
 package com.example.spideremporium.controller;
 
+import com.example.spideremporium.dataManagement.SerializationManager;
 import com.example.spideremporium.model.*;
 import com.example.spideremporium.view.OrderView;
 import javafx.collections.FXCollections;
@@ -8,8 +9,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 
-import java.io.*;
-import java.util.ArrayList;
 import java.util.Comparator;
 
 public class OrderController {

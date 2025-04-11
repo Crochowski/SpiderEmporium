@@ -1,4 +1,4 @@
-package com.example.spideremporium.controller;
+package com.example.spideremporium.dataManagement;
 
 import com.example.spideremporium.model.Customer;
 import com.example.spideremporium.model.Order;

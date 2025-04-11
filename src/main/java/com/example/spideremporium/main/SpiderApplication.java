@@ -60,8 +60,8 @@ public class SpiderApplication extends Application {
         orderController.retrieveUIComponents();
 
         // Load customer and spider lists from model into view
-        orderView.setAvailableCustomers(customerOps.getCustomerList());
-        orderView.setAvailableSpiders(spiderOps.getSpiderList());
+//        orderView.setAvailableCustomers(customerOps.getCustomerList());
+//        orderView.setAvailableSpiders(spiderOps.getSpiderList());
 
         orderTab.setContent(orderView.getRoot());
 

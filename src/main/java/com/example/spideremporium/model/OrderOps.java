@@ -1,10 +1,8 @@
 package com.example.spideremporium.model;
 
-import com.example.spideremporium.controller.SerializationManager;
+import com.example.spideremporium.dataManagement.SerializationManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
-import java.util.ArrayList;
 
 public class OrderOps {
     private ObservableList<Order> orderList = FXCollections.observableArrayList();

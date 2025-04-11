@@ -25,6 +25,8 @@ public class Customer implements Serializable {
      * This constructor is used to create a first time customer.<br>
      * @param _fName - The customer's first name
      * @param _lName - The customer's last name
+     * @param _address - The customer's address
+     * @param _phone - The customer's phone number
      */
     public Customer(String _fName, String _lName, String _address, String _phone) {
         this.fName = _fName;
@@ -36,21 +38,22 @@ public class Customer implements Serializable {
         saveNextID();               // Save the next ID assigned to files
     }
 
-
     /**
-     * This constructor is used to create a customer from existing information in the customers.txt file.<br>
-     * @param _custID - The unique ID of the customer
-     * @param _fName - The first name of the customer
-     * @param _lName - The last name of the customer
+     * This constructor is for use with the sql database.
+     * @param _id - The customer's id
+     * @param _fName - The customer's first name
+     * @param _lName - The customer's last name
+     * @param _address - The customer's address
+     * @param _phone - The customer's phone number
+
      */
-    public Customer(int _custID, String _fName, String _lName, String address) {
-        this.custID = _custID;
+    public Customer(int _id, String _fName, String _lName, String _address, String _phone) {
+        this.custID = _id;
         this.fName = _fName;
         this.lName = _lName;
-        this.address = address;
-        this.isValued = this.totalSpidersPurchased >= 3;    // The customer is valued if they have purchased more than 3 spiders
+        this.address = _address;
+        this.phone = _phone;
     }
-
 
     /**
      * Given a concrete customer (this), the function returns its custID.

@@ -1,12 +1,12 @@
 package com.example.spideremporium.controller;
 
+import com.example.spideremporium.dataManagement.SerializationManager;
 import com.example.spideremporium.model.*;
 import com.example.spideremporium.view.SpiderView;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import java.util.ArrayList;
 
 public class SpiderController {
     private SpiderOps spiderOps;

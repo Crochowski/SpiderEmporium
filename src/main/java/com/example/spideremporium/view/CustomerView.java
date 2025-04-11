@@ -139,9 +139,7 @@ public class CustomerView {
         this.customerDisplay.setPrefWidth(300);
         this.customerDisplay.setPrefHeight(200);
         // Load customers from the list and display them
-        customerController.loadCustomers();
         this.customerDisplay.setItems(customerController.getCustomerList());
-        //this.customerDisplay.getItems().addAll(customerController.getCustomerList());
 
         customerViewBox.getChildren().add(customerDisplay);
         root.getChildren().add(customerViewBox);

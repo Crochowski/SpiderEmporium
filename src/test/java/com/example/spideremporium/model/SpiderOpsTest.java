@@ -1,6 +1,6 @@
 package com.example.spideremporium.model;
 
-import com.example.spideremporium.controller.SerializationManager;
+import com.example.spideremporium.dataManagement.SerializationManager;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
