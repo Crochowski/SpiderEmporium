@@ -23,7 +23,6 @@ public class OrderController {
     private ListView<Spider> checkoutView;
     private ObservableList<Spider> selectedSpidersList;
     private double total;
-    private SerializationManager serializationManager = SerializationManager.getSerializationManager();
 
 
     public OrderController(OrderView _orderView) {
@@ -31,9 +30,10 @@ public class OrderController {
         this.selectedSpidersList = FXCollections.observableArrayList();
         this.total = 0.0;
         this.orderOps = new OrderOps();
+        //orderOps.clearAllOrders();
     }
 
-    public ArrayList<Order> getOrderList() {
+    public ObservableList<Order> getOrderList() {
         return orderOps.getOrderList();
     }
 
@@ -153,7 +153,7 @@ public class OrderController {
      * This function loads orders from a file into the order list.<br>
      */
     public void loadOrdersFromFile() {
-       serializationManager.deSerializeFile(orderOps.getOrderList(), Order.class);
+       SerializationManager.getSerializationManager().deSerializeFile(orderOps.getOrderList(), Order.class);
     }
 
     /**
@@ -162,7 +162,9 @@ public class OrderController {
     public void saveOrderToFile(Order order) {
         loadOrdersFromFile();
         orderOps.getOrderList().add(order);
-        serializationManager.serializeFile(orderOps.getOrderList(), Order.class);
+        SerializationManager.getSerializationManager().serializeFile(orderOps.getOrderList(), Order.class);
     }
+
+
 
 }

@@ -3,6 +3,7 @@ package com.example.spideremporium.controller;
 import com.example.spideremporium.model.*;
 import com.example.spideremporium.view.SpiderView;
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import java.util.ArrayList;
@@ -15,13 +16,12 @@ public class SpiderController {
     private ToggleGroup typeGroup;
     private ComboBox<String> potencyData;
     private Button addBtn, removeBtn, listBtn, saveBtn, loadBtn, exitBtn, counterBtn, stockBtn;
-    private SerializationManager serializationManager = SerializationManager.getSerializationManager();
 
     public SpiderController(SpiderOps _spiderOps) {
         this.spiderOps = _spiderOps; // Connect to the model
     }
 
-    public ArrayList<Spider> getSpiderList() {
+    public ObservableList<Spider> getSpiderList() {
         return spiderOps.getSpiderList();
     }
 
@@ -59,16 +59,17 @@ public class SpiderController {
     }
 
     public void loadSpiders() {
-        serializationManager.deSerializeFile(spiderOps.getSpiderList(), Spider.class);
+        SerializationManager.getSerializationManager().deSerializeFile(spiderOps.getSpiderList(), Spider.class);
         if (spiderView != null) {
             spiderView.updateInfoText("Spiders loaded.");
+            spiderView.showDataConfirmationAlert(true);
         }
     }
 
     public void exitApplication() {
         boolean saveBeforeExit = spiderView.showExitAlert();
         if (saveBeforeExit) {
-            serializationManager.serializeFile(spiderOps.getSpiderList(), Spider.class);
+            SerializationManager.getSerializationManager().serializeFile(spiderOps.getSpiderList(), Spider.class);
         }
         Platform.exit();
     }
@@ -123,8 +124,9 @@ public class SpiderController {
     }
 
     public void saveSpiders() {
-        serializationManager.serializeFile(spiderOps.getSpiderList(), Spider.class);
+        SerializationManager.getSerializationManager().serializeFile(spiderOps.getSpiderList(), Spider.class);
         spiderView.updateInfoText("Spiders saved.");
+        spiderView.showDataConfirmationAlert(false);
     }
 
     public void incrementStockCount() {

@@ -33,14 +33,14 @@ public class OrderView {
     private Button addBtn, removeBtn, purchaseBtn, sortAZBtn, sortPriceBtn, newOrderBtn, viewOrdersBtn;
     private Label totalLabel, receiptCustomerLabel, receiptDateLabel;
 
-    private ArrayList<Customer> availableCustomers;
-    private ArrayList<Spider> availableSpiders;
+    private ObservableList<Customer> availableCustomers;
+    private ObservableList<Spider> availableSpiders;
 
     public OrderView() {
         this.root = new VBox(10);
         this.root.setStyle("-fx-background-color: #3e2340");
-        this.availableCustomers = new ArrayList<>();
-        this.availableSpiders = new ArrayList<>();
+        this.availableCustomers = FXCollections.observableArrayList();
+        this.availableSpiders = FXCollections.observableArrayList();
     }
 
     public void setOrderController(OrderController _orderController) {
@@ -52,20 +52,20 @@ public class OrderView {
      * This method updates the customer list for the customerbox.
      * @param customers List of available customers.
      */
-    public void setAvailableCustomers(ArrayList<Customer> customers) {
+    public void setAvailableCustomers(ObservableList<Customer> customers) {
         this.availableCustomers = customers;
             customerBox.getItems().clear();
-            customerBox.getItems().addAll(customers);
+            customerBox.setItems(customers);
     }
 
     /**
      * This method updates the spider list for the spiderbox.
      * @param spiders List of available spiders.
      */
-    public void setAvailableSpiders(ArrayList<Spider> spiders) {
+    public void setAvailableSpiders(ObservableList<Spider> spiders) {
         this.availableSpiders = spiders;
             spiderBox.getItems().clear();
-            spiderBox.getItems().addAll(spiders);
+            spiderBox.setItems(spiders);
     }
 
     public VBox getRoot() {
@@ -92,6 +92,7 @@ public class OrderView {
 
     public Button getViewOrdersBtn() { return this.viewOrdersBtn;
     }
+
 
     public ComboBox<Spider> getSpiderBox() {
         return this.spiderBox;
@@ -147,13 +148,13 @@ public class OrderView {
         customerBox = new ComboBox<>();
         customerBox.setPrefWidth(250);
         customerBox.setPromptText("Select Customer");
-        customerBox.getItems().addAll(availableCustomers);
+        customerBox.setItems(availableCustomers);
 
         // Spider drop down
         spiderBox = new ComboBox<>();
         spiderBox.setPrefWidth(250);
         spiderBox.setPromptText("Select Spider");
-        spiderBox.getItems().addAll(availableSpiders);
+        spiderBox.setItems(availableSpiders);
 
         selectionBox.getChildren().addAll(customerBox, spiderBox, this.addBtn);
         topSection.getChildren().add(selectionBox);

@@ -1,5 +1,8 @@
 package com.example.spideremporium.model;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.io.*;
 import java.util.ArrayList;
 
@@ -8,9 +11,9 @@ import java.util.ArrayList;
  */
 public class CustomerOps {
 
-    private ArrayList<Customer> customerList = new ArrayList<>();
+    private ObservableList<Customer> customerList = FXCollections.observableArrayList();
 
-    public ArrayList<Customer> getCustomerList() {
+    public ObservableList<Customer> getCustomerList() {
         return this.customerList;
     }
 

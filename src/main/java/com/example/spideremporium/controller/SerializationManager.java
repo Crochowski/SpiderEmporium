@@ -1,149 +1,122 @@
 package com.example.spideremporium.controller;
 
 import com.example.spideremporium.model.Customer;
-import com.example.spideremporium.model.CustomerOps;
 import com.example.spideremporium.model.Order;
 import com.example.spideremporium.model.Spider;
+import javafx.application.Platform;
+import javafx.collections.ObservableList;
+
 import java.io.*;
 import java.util.ArrayList;
 
+/**
+ * This singleton class is used to handle serialization/deserialization of store data.
+ */
 public class SerializationManager {
 
-    private static SerializationManager serializationManager = new SerializationManager();
+    private static final SerializationManager serializationManager = new SerializationManager();
 
+    /**
+     * This constructor is private to prevent further instances of this class being created.
+     */
     private SerializationManager() {
-
     }
 
+    /**
+     * This method returns the single instance of the SerializationManager.
+     * @return - The single instance of SerializationManager
+     */
     public static SerializationManager getSerializationManager() {
         return serializationManager;
     }
 
-    public <T> void deSerializeFile(ArrayList<T> list, Class<T> type) {
-        String fileName;
-        list.clear();
-        if (type.equals(Customer.class)) {
-            fileName = "database/customers.ser";
-        }
-        else if (type.equals(Spider.class)){
-            fileName = "database/spiders.ser";
-        }
+    /**
+     * This method deserializes the appropriate file and loads the objects into the corresponding list in memory.
+     * @param list - The list to which the objects will be added
+     * @param type - The data type of the objects to store in the list
+     * @param <T> - The type of object being deserialized
+     */
+    public <T> void deSerializeFile(ObservableList<T> list, Class<T> type) {
+        Thread deSerializerThread = new Thread(() -> {
+            String fileName;
+            if (type.equals(Customer.class)) {
+                fileName = "database/customers.ser";
+            } else if (type.equals(Spider.class)) {
+                fileName = "database/spiders.ser";
+            } else if (type.equals(Order.class)) {
+                fileName = "database/orders.ser";
+            } else {
+                throw new IllegalArgumentException("Invalid class: " + type.getSimpleName());
+            }
 
-        else if (type.equals(Order.class)) {
-            fileName = "database/orders.ser";
-        }
-        else {
-            throw new IllegalArgumentException("Invalid class: " + type.getName());
-        }
 
-        try {
-            FileInputStream file = new FileInputStream(fileName);
-            ObjectInputStream in = new ObjectInputStream(file);
+            try (FileInputStream file = new FileInputStream(fileName);
+                 ObjectInputStream in = new ObjectInputStream(file);) {
 
-            ArrayList<T> dataToLoad = (ArrayList<T>) in.readObject();
-            list.addAll(dataToLoad);
-            in.close();
-            file.close();
-        } catch (IOException | ClassNotFoundException e) {
-            System.out.println("Cannot load customers from file: " + e.getMessage());
-        }
+                ArrayList<T> dataToLoad = (ArrayList<T>) in.readObject();
+
+                Platform.runLater(() -> {
+                    list.clear();
+                    list.addAll(dataToLoad);
+            });
+
+            }
+            catch (FileNotFoundException e) {
+                System.out.println("File not found: " + fileName);
+            }
+            catch (IOException e) {
+                System.out.println("Cannot load " + type.getSimpleName() + " from file: " + e.getMessage());
+            }
+            catch (ClassNotFoundException e) {
+                System.out.println("Class not found: " + e.getMessage());
+            }
+        });
+
+        deSerializerThread.start();
     }
 
 
-
     /**
-     * This function saves the customers from the customer list into customers.txt.
+     * This method serializes objects stored in a list to a serial file.
+     * @param list - The list containing the objects to be serialized
+     * @param type - The data type of the objects
+     * @param <T> - The type of object being serialized
      */
-    public <T> void serializeFile(ArrayList<T> list, Class<T> type) {
-        String fileName;
-        if (type.equals(Customer.class)) {
-            fileName = "database/customers.ser";
-        }
-        else if (type.equals(Spider.class)){
-            fileName = "database/spiders.ser";
-        }
+    public <T> void serializeFile(ObservableList<T> list, Class<T> type) {
+        ArrayList<T> listToSave = new ArrayList<>(list);
+        Thread serializerThread = new Thread(() -> {
 
-        else if (type.equals(Order.class)) {
-            fileName = "database/orders.ser";
-        }
+            String fileName;
+            if (type.equals(Customer.class)) {
+                fileName = "database/customers.ser";
+            } else if (type.equals(Spider.class)) {
+                fileName = "database/spiders.ser";
+            } else if (type.equals(Order.class)) {
+                fileName = "database/orders.ser";
+            } else {
+                throw new IllegalArgumentException("Invalid class: " + type.getSimpleName());
+            }
 
-        else {
-            throw new IllegalArgumentException("Invalid class: " + type.getName());
-        }
-        try {
-            FileOutputStream file = new FileOutputStream(fileName);
-            ObjectOutputStream out = new ObjectOutputStream(file);
+            File dbDirectory = new File("database");
+            if (!dbDirectory.exists()) {
+                dbDirectory.mkdirs();
+            }
 
-            out.writeObject(list);
-            out.close();
-            file.close();
-        }
-        catch (IOException e) {
-            System.out.println("Cannot save to file: " + e.getMessage());
-        }
+            try ( FileOutputStream file = new FileOutputStream(fileName);
+                  ObjectOutputStream out = new ObjectOutputStream(file);){
+
+                out.writeObject(listToSave);
+
+            }
+            catch (FileNotFoundException e) {
+                System.out.println("Cannot create file: " + fileName + ": " + e.getMessage());
+            }
+            catch (IOException e) {
+                System.out.println("Cannot save " + type.getSimpleName() + " to file: " + e.getMessage());
+            }
+        });
+
+        serializerThread.start();
     }
-
-    /**
-     * This function loads spiders from a file into the spider list.<br>
-     */
-//    public void loadSpidersFromFile(SpiderOps spiderOps) {
-//        ArrayList<Spider> spiderList = spiderOps.getSpiderList();
-//        String fileName = "database/spiders.ser";
-//        spiderList.clear();
-//
-//        try {
-//            FileInputStream file = new FileInputStream(fileName);
-//            ObjectInputStream in = new ObjectInputStream(file);
-//
-//            ArrayList<Spider> spiders = (ArrayList<Spider>) in.readObject();
-//            spiderList.addAll(spiders);
-//            in.close();
-//            file.close();
-//        } catch (IOException | ClassNotFoundException e) {
-//            System.out.println("Cannot load spiders from file " + e.getMessage());
-//        }
-//    }
-
-
-    /**
-     * This function saves the spiders from the spider list to their respective files.<br>
-     */
-//    public void writeSpidersToFile(SpiderOps spiderOps) {
-//        ArrayList<Spider> spiderList = spiderOps.getSpiderList();
-//        String fileName = "database/spiders.ser";           // String to store file data to be written to database
-//        try {
-//            FileOutputStream file = new FileOutputStream(fileName);
-//            ObjectOutputStream out = new ObjectOutputStream(file);
-//
-//            out.writeObject(spiderList);
-//            out.close();
-//            file.close();
-//        }
-//        catch (IOException e) {
-//            System.out.println("Cannot save spiders to file: " + e.getMessage());
-//        }
-//
-//    }
-
-//    /**
-//     * This method loads the customers from customers.txt into the customerList.
-//     */
-//    public void loadCustomersFromFile(CustomerOps customerOps) {
-//        ArrayList<Customer> customerList = customerOps.getCustomerList();
-//        String fileName = "database/customers.ser";
-//        customerList.clear();
-//
-//        try {
-//            FileInputStream file = new FileInputStream(fileName);
-//            ObjectInputStream in = new ObjectInputStream(file);
-//
-//            ArrayList<Customer> customers = (ArrayList<Customer>) in.readObject();
-//            customerList.addAll(customers);
-//            in.close();
-//            file.close();
-//        } catch (IOException | ClassNotFoundException e) {
-//            System.out.println("Cannot load from file: " + e.getMessage());
-//        }
-//    }
 
 }

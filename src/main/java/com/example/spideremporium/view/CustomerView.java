@@ -140,7 +140,8 @@ public class CustomerView {
         this.customerDisplay.setPrefHeight(200);
         // Load customers from the list and display them
         customerController.loadCustomers();
-        this.customerDisplay.getItems().addAll(customerController.getCustomerList());
+        this.customerDisplay.setItems(customerController.getCustomerList());
+        //this.customerDisplay.getItems().addAll(customerController.getCustomerList());
 
         customerViewBox.getChildren().add(customerDisplay);
         root.getChildren().add(customerViewBox);
@@ -150,6 +151,7 @@ public class CustomerView {
         this.fnameData.clear();
         this.lnameData.clear();
         this.addressData.clear();
+        this.phoneData.clear();
     }
 
     /**
@@ -160,6 +162,20 @@ public class CustomerView {
         customerDisplay.getItems().addAll(customerController.getCustomerList());
         updateInfoText("Customer list refreshed.");
 
+    }
+
+    public void showDataConfirmationAlert(boolean isLoadAlert) {
+        String notification;
+        if (isLoadAlert) {
+            notification = "Customers loaded from serial file!";
+        }
+        else {
+            notification = "Customers saved to serial file!";
+        }
+        Alert alert = new Alert(Alert.AlertType.INFORMATION, notification);
+        alert.setTitle("Customers loaded");
+        alert.setHeaderText(null);
+        alert.showAndWait();
     }
 
     public int showExitAlert() {
@@ -212,8 +228,8 @@ public class CustomerView {
         root.getChildren().add(displayOptionsBox);
 
         HBox maintenanceOptionsBox = new HBox(17);
-        this.saveBtn = new Button("SAVE");
-        this.loadBtn = new Button("LOAD");
+        this.saveBtn = new Button("SAVE (Serial)");
+        this.loadBtn = new Button("LOAD (Serial)");
         this.exitBtn = new Button("EXIT");
         maintenanceOptionsBox.getChildren().addAll(saveBtn, loadBtn, exitBtn);
         maintenanceOptionsBox.setAlignment(Pos.CENTER);

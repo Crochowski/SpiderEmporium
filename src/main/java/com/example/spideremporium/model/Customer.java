@@ -175,6 +175,6 @@ public class Customer implements Serializable {
      * @return - The concatenated string representing a customer object.
      */
     public String toString() {
-        return this.custID + " | " + this.fName + " " + this.getlName() + " | " + this.address + "| " + this.phone;
+        return this.custID + " | " + this.fName + " " + this.getlName() + " | " + this.address + " | " + this.phone;
     }
 }

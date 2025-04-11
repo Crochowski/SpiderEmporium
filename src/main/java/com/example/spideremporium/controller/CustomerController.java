@@ -3,6 +3,7 @@ import com.example.spideremporium.model.Customer;
 import com.example.spideremporium.model.CustomerOps;
 import com.example.spideremporium.view.CustomerView;
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
@@ -13,7 +14,6 @@ import java.util.ArrayList;
  */
 public class CustomerController {
     private CustomerOps customerOps;
-    private SerializationManager serializationManager = SerializationManager.getSerializationManager();
     private CustomerView customerView;
     private Button addBtn, removeBtn, listBtn, saveBtn, loadBtn, exitBtn;
 
@@ -44,10 +44,17 @@ public class CustomerController {
     }
 
     public void loadCustomers() {
-        serializationManager.deSerializeFile(customerOps.getCustomerList(), Customer.class);
+        SerializationManager.getSerializationManager().deSerializeFile(customerOps.getCustomerList(), Customer.class);
         if (customerView != null) {
             customerView.updateInfoText("Customers loaded.");
+            customerView.showDataConfirmationAlert(true);
         }
+    }
+
+    public void saveCustomers() {
+        SerializationManager.getSerializationManager().serializeFile(customerOps.getCustomerList(), Customer.class);
+        customerView.updateInfoText("Customers saved.");
+        customerView.showDataConfirmationAlert(false);
     }
 
     /**
@@ -56,7 +63,7 @@ public class CustomerController {
     public void exitApplication() {
         int saveBeforeExit = customerView.showExitAlert();
         if (saveBeforeExit == 1) {;
-            serializationManager.serializeFile(customerOps.getCustomerList(), Customer.class);
+            SerializationManager.getSerializationManager().serializeFile(customerOps.getCustomerList(), Customer.class);
             Platform.exit();
         }
         else if (saveBeforeExit == 2) {
@@ -98,12 +105,9 @@ public class CustomerController {
         }
     }
 
-    public void saveCustomers() {
-        serializationManager.serializeFile(customerOps.getCustomerList(), Customer.class);
-        customerView.updateInfoText("Customers saved.");
-    }
 
-    public ArrayList<Customer> getCustomerList() {
+
+    public ObservableList<Customer> getCustomerList() {
         return customerOps.getCustomerList();
     }
 }

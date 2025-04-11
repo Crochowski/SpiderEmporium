@@ -174,7 +174,8 @@ public class SpiderView {
         this.spiderListView.setPrefHeight(200);
 
         spiderController.loadSpiders();
-        this.spiderListView.getItems().addAll(spiderController.getSpiderList());
+        this.spiderListView.setItems(spiderController.getSpiderList());
+        //this.spiderListView.getItems().addAll(spiderController.getSpiderList());
 
         spiderViewBox.getChildren().add(spiderListView);
         root.getChildren().add(spiderViewBox);
@@ -211,6 +212,21 @@ public class SpiderView {
         return result.isPresent() && result.get().equals(yesBtn);
     }
 
+    public void showDataConfirmationAlert(boolean isLoadAlert) {
+        String notification;
+        if (isLoadAlert) {
+            notification = "Spiders loaded from serial file!";
+        }
+        else {
+            notification = "Spiders saved to serial file!";
+        }
+        Alert alert = new Alert(Alert.AlertType.INFORMATION, notification);
+        alert.setTitle("Spiders loaded");
+        alert.setHeaderText(null);
+        alert.showAndWait();
+    }
+
+
     /**
      * This method displays an alert if any textfields are empty when an attempt is made to add a new spider.
      */
@@ -234,8 +250,8 @@ public class SpiderView {
         root.getChildren().add(displayOptionsBox);
 
         HBox maintenanceOptionsBox = new HBox(17);
-        this.saveBtn = new Button("SAVE");
-        this.loadBtn = new Button("LOAD");
+        this.saveBtn = new Button("SAVE (Serial)");
+        this.loadBtn = new Button("LOAD (Serial)");
         this.exitBtn = new Button("EXIT");
         maintenanceOptionsBox.getChildren().addAll(saveBtn, loadBtn, exitBtn);
         maintenanceOptionsBox.setAlignment(Pos.CENTER);

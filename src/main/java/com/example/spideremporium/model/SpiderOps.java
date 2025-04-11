@@ -1,11 +1,14 @@
 package com.example.spideremporium.model;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.io.*;
 import java.util.ArrayList;
 
 public class SpiderOps {
-    private ArrayList<Spider> spiderList = new ArrayList<>();
+    private ObservableList<Spider> spiderList = FXCollections.observableArrayList();
 
-    public ArrayList<Spider> getSpiderList() {
+    public ObservableList<Spider> getSpiderList() {
         return this.spiderList;
     }
 
@@ -16,7 +19,5 @@ public class SpiderOps {
     public void removeSpider(Spider spider) {
         spiderList.remove(spider);
     }
-
-
 
 }
