@@ -1,6 +1,8 @@
 package com.example.spideremporium.dataManagement;
 
+import com.example.spideremporium.model.ConcreteCustomerBuilder;
 import com.example.spideremporium.model.Customer;
+import com.example.spideremporium.model.CustomerBuilder;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -18,6 +20,9 @@ public class MySQLManager {
     }
 
 
+    /**
+     * Creates a connection to the database.
+     */
     public void createConnection() {
         try {
             // Load driver
@@ -41,6 +46,9 @@ public class MySQLManager {
         }
     }
 
+    /**
+     * Closes the connection to the database.
+     */
     public void closeConnection() {
         try {
             if (connection != null && !connection.isClosed()) {
@@ -55,6 +63,11 @@ public class MySQLManager {
     }
 
 
+    /**
+     * Loads the customers from the database.Recreates the customer objects
+     * using the concrete customerbuilder and returns the customers in a list.
+     * @return - The list of customers.
+     */
     public ObservableList<Customer> loadCustomersFromDB() {
         ObservableList<Customer> customers = FXCollections.observableArrayList();
         Statement stmt = null;
@@ -70,13 +83,15 @@ public class MySQLManager {
             String query = "SELECT * FROM customer";
             rset = stmt.executeQuery(query);
             while (rset.next()) {
-                int id = rset.getInt("id");
-                String fname = rset.getString("fname");
-                String lname = rset.getString("lname");
-                String address = rset.getString("address");
-                String phone = rset.getString("phone");
 
-                Customer customer = new Customer(id, fname, lname, address, phone);
+                CustomerBuilder customerBuilder = new ConcreteCustomerBuilder();
+                customerBuilder.buildID(rset.getInt("id"));
+                customerBuilder.buildFName(rset.getString("fname"));
+                customerBuilder.buildLName(rset.getString("lname"));
+                customerBuilder.buildAddress(rset.getString("address"));
+                customerBuilder.buildPhone(rset.getString("phone"));
+
+                Customer customer = customerBuilder.getCustomer();
                 customers.add(customer);
             }
         }
@@ -92,17 +107,22 @@ public class MySQLManager {
                 e.printStackTrace();
             }
         }
-
         return customers;
         }
 
-        public void saveCustomers(ObservableList<Customer> customers) {
+    /**
+     * Saves the customers in memory to the database. If customers have been removed while the application is running,
+     * this method also removes those customers from the database.
+     * @param customers - The list of customers to be saved.
+     */
+    public void saveCustomers(ObservableList<Customer> customers) {
 
             try {
                 if (connection == null || connection.isClosed()) {
                     createConnection();
                 }
 
+                // Delete any customers that have been removed first
                 String deleteQuery = "DELETE FROM customer WHERE id= ?";
                 for (Customer customer: removedCustomers) {
                     PreparedStatement pstmt = connection.prepareStatement(deleteQuery);
@@ -111,6 +131,8 @@ public class MySQLManager {
                 }
 
 
+                // Insert the customers from the list. On duplicate prevents error from attempting to write an existing
+                // customer back into the database.
                 String insertQuery = "INSERT INTO customer (id, fname, lname, address, phone)VALUES (?, ?, ?, ?, ?) " +
                         "ON DUPLICATE KEY UPDATE fname=VALUES(fname), lname=VALUES(lname), address=VALUES(address), " +
                         "phone=VALUES(phone)";

@@ -59,6 +59,9 @@ public class SpiderController {
         stockBtn.setOnAction(e -> viewStock());
     }
 
+    /**
+     * Loads the spiders from the serial file into the list in memory.
+     */
     public void loadSpiders() {
         SerializationManager.getSerializationManager().deSerializeFile(spiderOps.getSpiderList(), Spider.class);
         if (spiderView != null) {
@@ -67,6 +70,9 @@ public class SpiderController {
         }
     }
 
+    /**
+     * Exits the application. Prompts the user to save.
+     */
     public void exitApplication() {
         boolean saveBeforeExit = spiderView.showExitAlert();
         if (saveBeforeExit) {
@@ -77,6 +83,9 @@ public class SpiderController {
         Platform.exit();
     }
 
+    /**
+     * Creates the spider of the appropriate type and adds it to the list in memory.
+     */
     public void addSpider() {
         String species = speciesData.getText();     // Save data from text fields
 
@@ -112,6 +121,9 @@ public class SpiderController {
         }
     }
 
+    /**
+     * Removes a spider selected from the listview from the list in memory.
+     */
     public void removeSpider() {
         Spider chosenSpider = spiderListView.getSelectionModel().getSelectedItem();
         if (chosenSpider != null) {
@@ -122,10 +134,16 @@ public class SpiderController {
         }
     }
 
+    /**
+     * Displays the spiders from the in the listview.
+     */
     public void displaySpiders() {
         spiderView.displaySpiders();
     }
 
+    /**
+     * Saves the spiders in the list to the serial file.
+     */
     public void saveSpiders() {
         SerializationManager.getSerializationManager().serializeFile(spiderOps.getSpiderList(), Spider.class);
         spiderView.updateInfoText("Spiders saved.");
@@ -136,6 +154,9 @@ public class SpiderController {
         spiderView.incrementStockCounter();
     }
 
+    /**
+     * Displays the current stock of the chosen spider to the screen.
+     */
     public void viewStock() {
         Spider spider = spiderListView.getSelectionModel().getSelectedItem();
         if (spider != null) {

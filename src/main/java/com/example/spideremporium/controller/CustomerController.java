@@ -9,9 +9,6 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
-
 /**
  * This class models an object used to manage the GUI operations.
  */
@@ -47,25 +44,31 @@ public class CustomerController {
         addBtn.setOnAction(e -> addCustomer());
         removeBtn.setOnAction(e -> removeCustomer());
         listBtn.setOnAction(e-> customerView.refreshCustomerDisplay());
-        serialSaveBtn.setOnAction(e-> saveCustomers());
-        serialLoadBtn.setOnAction(e-> loadCustomers());
+        serialSaveBtn.setOnAction(e-> saveCustomersToSerial());
+        serialLoadBtn.setOnAction(e-> loadCustomersFromSerial());
         exitBtn.setOnAction(e-> exitApplication());
         dbSaveBtn.setOnAction(e-> saveCustomersToDB());
         dbLoadBtn.setOnAction(e-> loadCustomersFromDB());
     }
 
-    public void loadCustomers() {
+    /**
+     * Loads the customers from the serial file into memory.
+     */
+    public void loadCustomersFromSerial() {
         SerializationManager.getSerializationManager().deSerializeFile(customerOps.getCustomerList(), Customer.class);
         if (customerView != null) {
             customerView.updateInfoText("Customers loaded.");
-            customerView.showDataConfirmationAlert(true, true);
+            customerView.showDataConfirmationAlert(true, true, false);
         }
     }
 
-    public void saveCustomers() {
+    /**
+     * Saves customer from memory into serial file.
+     */
+    public void saveCustomersToSerial() {
         SerializationManager.getSerializationManager().serializeFile(customerOps.getCustomerList(), Customer.class);
         customerView.updateInfoText("Customers saved.");
-        customerView.showDataConfirmationAlert(false, true);
+        customerView.showDataConfirmationAlert(false, true, false);
     }
 
     /**
@@ -119,25 +122,47 @@ public class CustomerController {
         }
     }
 
+    /**
+     * Loads the customers from the database into memory.
+     */
     public void loadCustomersFromDB() {
         ObservableList<Customer> customers = MySQLManager.getmySQLManager().loadCustomersFromDB();
         customerOps.getCustomerList().clear();
         customerOps.getCustomerList().addAll(customers);
         MySQLManager.getmySQLManager().clearRemovedCustomersList();
-        customerView.updateInfoText("Customers loaded from DB!");
-        customerView.showDataConfirmationAlert(true, false);
+        verifyCustomerData();
     }
 
+    /**
+     * Saves the customers in the list to the database and provides appropriate feedback to the user.
+     */
     public void saveCustomersToDB() {
         try {
             MySQLManager.getmySQLManager().saveCustomers(customerOps.getCustomerList());
             customerView.updateInfoText("Customers saved to DB!");
-            customerView.showDataConfirmationAlert(false, false);
+            customerView.showDataConfirmationAlert(false, false, false);
         }
         catch (Exception e) {
             e.printStackTrace();
             customerView.updateInfoText("Could not save customers to DB!");
+            customerView.showDataConfirmationAlert(false, false, false);
         }
+    }
+
+    /**
+     * Verifies that the customer data has been correctly loaded from the database.
+     */
+    public void verifyCustomerData() {
+        for (Customer c: customerOps.getCustomerList()) {
+            if (c.getCustID() <= 0 || c.getfName() == null || c.getlName() == null || c.getAddress() == null
+            || c.getPhone() == null) {
+                customerView.updateInfoText("Customer data corrupted!");
+                customerView.showDataConfirmationAlert(true, false, true);
+                return;
+            }
+        }
+        customerView.updateInfoText("Customers loaded from DB!");
+        customerView.showDataConfirmationAlert(true, false, false);
     }
 
 

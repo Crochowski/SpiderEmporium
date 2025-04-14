@@ -64,12 +64,18 @@ public class OrderController {
 
     }
 
+    /**
+     * Adds a spider to the basket. Displays a warning if any required items are not selected.
+     */
     public void addSpider() {
         // Display alert if no customer or spider selected
         Customer selectedCustomer = customerBox.getValue();
+        Spider selectedSpider = null;
         // Lock the customer in after a spider is added
-        customerBox.setDisable(true);
-        Spider selectedSpider = spiderBox.getValue();
+        if (selectedCustomer != null) {
+            customerBox.setDisable(true);
+            selectedSpider = spiderBox.getValue();
+        }
 
         if (selectedCustomer == null || selectedSpider == null) {
             // Display warning if either customer or spider not selected
@@ -84,6 +90,9 @@ public class OrderController {
         }
     }
 
+    /**
+     * Removes a spider from the basket.
+     */
     public void removeSpider() {
         Spider selectedSpider = checkoutView.getSelectionModel().getSelectedItem();
         if (selectedSpider != null) {
@@ -94,6 +103,10 @@ public class OrderController {
         }
     }
 
+    /**
+     * Places an order by a customer for all the spiders in the basket. Places the purchased spiders into the receipt window
+     * and generates an order record.
+     */
     public void placeOrder() {
         Customer selectedCustomer = customerBox.getValue();
         // Make sure a customer is selected and has spiders in the basket
@@ -112,6 +125,9 @@ public class OrderController {
         }
     }
 
+    /**
+     * Resets the window so a new order can be placed.
+     */
     public void resetOrder() {
         selectedSpidersList.clear();
         total = 0.0;
@@ -122,6 +138,11 @@ public class OrderController {
     }
 
 
+    /**
+     * Sorts the spiders in the receipt window either alphabetically or by price
+     * @param selectedSpidersList - The list of spiders to sort.
+     * @param isAlphaSort - Whether to sort alphabetically or by price.
+     */
     public void sortPurchasedSpiders(ObservableList<Spider> selectedSpidersList, boolean isAlphaSort) {
         if (isAlphaSort) {
             isAscendingAlpha = !isAscendingAlpha;
@@ -156,7 +177,7 @@ public class OrderController {
     }
 
     /**
-     * Saves the order to file
+     * Saves the order to file.
      */
     public void saveOrderToFile(Order order) {
         loadOrdersFromFile();

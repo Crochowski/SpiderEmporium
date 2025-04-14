@@ -56,6 +56,13 @@ public class Customer implements Serializable {
     }
 
     /**
+     * Empty constructor for the builder
+     */
+    public Customer() {
+
+    }
+
+    /**
      * Given a concrete customer (this), the function returns its custID.
      * @return The unique ID of the customer.
      */
@@ -117,6 +124,25 @@ public class Customer implements Serializable {
         return this.totalSpidersPurchased;
     }
 
+    public void setCustID(int _custID) {
+        this.custID = _custID;
+    }
+
+    public void setfName(String _fName) {
+        this.fName = _fName;
+    }
+
+    public void setlName(String _lName) {
+        this.lName = _lName;
+    }
+
+    public void setAddress(String _address) {
+        this.address = _address;
+    }
+
+    public void setPhone(String _phone) {
+        this.phone = _phone;
+    }
 
 
     /**

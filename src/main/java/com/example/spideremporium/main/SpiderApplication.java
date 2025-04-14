@@ -84,7 +84,7 @@ public class SpiderApplication extends Application {
         stage.setOnCloseRequest(e -> {
             int saveBeforeExit = customerView.showExitAlert();
             if (saveBeforeExit == 1) {
-                customerController.saveCustomers();
+                customerController.saveCustomersToSerial();
                 spiderController.saveSpiders();
                 // Close the mySQL connection
                 MySQLManager.getmySQLManager().closeConnection();

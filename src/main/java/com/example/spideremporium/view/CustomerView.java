@@ -166,26 +166,33 @@ public class CustomerView {
 
     }
 
-    public void showDataConfirmationAlert(boolean isLoadAlert, boolean isSerial) {
+    public void showDataConfirmationAlert(boolean isLoadAlert, boolean isSerial, boolean isCorrupted) {
         String notification;
-        if (isLoadAlert) {
-            if (isSerial) {
-                notification = "Customers loaded from serial file!";
-            }
-            else {
-                notification = "Customers loaded from database!";
-            }
+        String title;
+        if (isCorrupted) {
+            notification = "Loaded customer data is corrupted!";
+            title = "Corrupted data error!";
         }
         else {
-            if (isSerial) {
-                notification = "Customers saved to serial file!";
-            }
-            else {
-                notification = "Customers saved to database!";
+            if (isLoadAlert) {
+                title = "Customers loaded!";
+                if (isSerial) {
+                    notification = "Customers loaded from serial file!";
+                } else {
+                    notification = "Customers loaded from database!";
+                }
+
+            } else {
+                title = "Customers saved!";
+                if (isSerial) {
+                    notification = "Customers saved to serial file!";
+                } else {
+                    notification = "Customers saved to database!";
+                }
             }
         }
         Alert alert = new Alert(Alert.AlertType.INFORMATION, notification);
-        alert.setTitle("Customers loaded");
+        alert.setTitle(title);
         alert.setHeaderText(null);
         alert.showAndWait();
     }
