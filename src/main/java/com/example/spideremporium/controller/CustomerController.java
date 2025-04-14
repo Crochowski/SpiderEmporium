@@ -1,4 +1,5 @@
 package com.example.spideremporium.controller;
+import com.example.spideremporium.dataManagement.MySQLManager;
 import com.example.spideremporium.dataManagement.SerializationManager;
 import com.example.spideremporium.model.Customer;
 import com.example.spideremporium.model.CustomerOps;
@@ -8,16 +9,23 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
+
 /**
  * This class models an object used to manage the GUI operations.
  */
 public class CustomerController {
     private CustomerOps customerOps;
     private CustomerView customerView;
-    private Button addBtn, removeBtn, listBtn, saveBtn, loadBtn, exitBtn;
+    private Button addBtn, removeBtn, listBtn, serialSaveBtn, serialLoadBtn, dbSaveBtn, dbLoadBtn, exitBtn;
 
     public CustomerController(CustomerOps _customerOps) {
         this.customerOps = _customerOps;
+    }
+
+    public ObservableList<Customer> getCustomerList() {
+        return customerOps.getCustomerList();
     }
 
     // Set the view and set up button references
@@ -28,8 +36,10 @@ public class CustomerController {
         this.addBtn = customerView.getAddBtn();
         this.removeBtn = customerView.getRemoveBtn();
         this.listBtn = customerView.getListBtn();
-        this.saveBtn = customerView.getSaveBtn();
-        this.loadBtn = customerView.getLoadBtn();
+        this.serialSaveBtn = customerView.getSerialSaveBtn();
+        this.serialLoadBtn = customerView.getSerialLoadBtn();
+        this.dbSaveBtn = customerView.getDbSaveBtn();
+        this.dbLoadBtn = customerView.getDbLoadBtn();
         this.exitBtn = customerView.getExitBtn();
     }
 
@@ -37,23 +47,25 @@ public class CustomerController {
         addBtn.setOnAction(e -> addCustomer());
         removeBtn.setOnAction(e -> removeCustomer());
         listBtn.setOnAction(e-> customerView.refreshCustomerDisplay());
-        saveBtn.setOnAction(e-> saveCustomers());
-        loadBtn.setOnAction(e-> loadCustomers());
+        serialSaveBtn.setOnAction(e-> saveCustomers());
+        serialLoadBtn.setOnAction(e-> loadCustomers());
         exitBtn.setOnAction(e-> exitApplication());
+        dbSaveBtn.setOnAction(e-> saveCustomersToDB());
+        dbLoadBtn.setOnAction(e-> loadCustomersFromDB());
     }
 
     public void loadCustomers() {
         SerializationManager.getSerializationManager().deSerializeFile(customerOps.getCustomerList(), Customer.class);
         if (customerView != null) {
             customerView.updateInfoText("Customers loaded.");
-            customerView.showDataConfirmationAlert(true);
+            customerView.showDataConfirmationAlert(true, true);
         }
     }
 
     public void saveCustomers() {
         SerializationManager.getSerializationManager().serializeFile(customerOps.getCustomerList(), Customer.class);
         customerView.updateInfoText("Customers saved.");
-        customerView.showDataConfirmationAlert(false);
+        customerView.showDataConfirmationAlert(false, true);
     }
 
     /**
@@ -63,9 +75,11 @@ public class CustomerController {
         int saveBeforeExit = customerView.showExitAlert();
         if (saveBeforeExit == 1) {;
             SerializationManager.getSerializationManager().serializeFile(customerOps.getCustomerList(), Customer.class);
+            MySQLManager.getmySQLManager().closeConnection();
             Platform.exit();
         }
         else if (saveBeforeExit == 2) {
+            MySQLManager.getmySQLManager().closeConnection();
             Platform.exit();
         }
     }
@@ -97,6 +111,7 @@ public class CustomerController {
     public void removeCustomer() {
         Customer chosenCustomer = customerView.getSelectedCustomer();
         if (chosenCustomer != null) {
+            MySQLManager.getmySQLManager().flagCustomerForRemoval(chosenCustomer);
             customerOps.removeCustomer(chosenCustomer);
             customerView.updateInfoText("Customer removed.");
         } else {
@@ -104,9 +119,26 @@ public class CustomerController {
         }
     }
 
-
-
-    public ObservableList<Customer> getCustomerList() {
-        return customerOps.getCustomerList();
+    public void loadCustomersFromDB() {
+        ObservableList<Customer> customers = MySQLManager.getmySQLManager().loadCustomersFromDB();
+        customerOps.getCustomerList().clear();
+        customerOps.getCustomerList().addAll(customers);
+        MySQLManager.getmySQLManager().clearRemovedCustomersList();
+        customerView.updateInfoText("Customers loaded from DB!");
+        customerView.showDataConfirmationAlert(true, false);
     }
+
+    public void saveCustomersToDB() {
+        try {
+            MySQLManager.getmySQLManager().saveCustomers(customerOps.getCustomerList());
+            customerView.updateInfoText("Customers saved to DB!");
+            customerView.showDataConfirmationAlert(false, false);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            customerView.updateInfoText("Could not save customers to DB!");
+        }
+    }
+
+
 }

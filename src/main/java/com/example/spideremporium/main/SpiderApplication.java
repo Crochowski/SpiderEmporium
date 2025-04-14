@@ -3,6 +3,7 @@ package com.example.spideremporium.main;
 import com.example.spideremporium.controller.CustomerController;
 import com.example.spideremporium.controller.OrderController;
 import com.example.spideremporium.controller.SpiderController;
+import com.example.spideremporium.dataManagement.MySQLManager;
 import com.example.spideremporium.model.CustomerOps;
 import com.example.spideremporium.model.SpiderOps;
 import com.example.spideremporium.view.CustomerView;
@@ -60,8 +61,8 @@ public class SpiderApplication extends Application {
         orderController.retrieveUIComponents();
 
         // Load customer and spider lists from model into view
-//        orderView.setAvailableCustomers(customerOps.getCustomerList());
-//        orderView.setAvailableSpiders(spiderOps.getSpiderList());
+        orderView.setAvailableCustomers(customerOps.getCustomerList());
+        orderView.setAvailableSpiders(spiderOps.getSpiderList());
 
         orderTab.setContent(orderView.getRoot());
 
@@ -85,6 +86,8 @@ public class SpiderApplication extends Application {
             if (saveBeforeExit == 1) {
                 customerController.saveCustomers();
                 spiderController.saveSpiders();
+                // Close the mySQL connection
+                MySQLManager.getmySQLManager().closeConnection();
                 Platform.exit();
             }
             else if (saveBeforeExit == 2) {

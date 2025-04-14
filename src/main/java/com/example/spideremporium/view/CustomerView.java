@@ -17,7 +17,7 @@ public class CustomerView {
     private CustomerController customerController;
     private TextField fnameData, lnameData, addressData, phoneData;
     private Label infoLabel;
-    private Button addBtn, removeBtn, listBtn, loadBtn, saveBtn, exitBtn;
+    private Button addBtn, removeBtn, listBtn, serialLoadBtn, serialSaveBtn, dbSaveBtn, dbLoadBtn, exitBtn;
     private ListView<Customer> customerDisplay;
 
     public CustomerView() {
@@ -44,17 +44,21 @@ public class CustomerView {
         return this.listBtn;
     }
 
-    public Button getSaveBtn() {
-        return this.saveBtn;
+    public Button getSerialSaveBtn() {
+        return this.serialSaveBtn;
     }
 
-    public Button getLoadBtn() {
-        return this.loadBtn;
+    public Button getSerialLoadBtn() {
+        return this.serialLoadBtn;
     }
 
     public Button getExitBtn() {
         return this.exitBtn;
     }
+
+    public Button getDbSaveBtn() { return this.dbSaveBtn; }
+
+    public Button getDbLoadBtn() { return this.dbLoadBtn; }
 
     public String getFnameData() {
         return this.fnameData.getText();
@@ -162,13 +166,23 @@ public class CustomerView {
 
     }
 
-    public void showDataConfirmationAlert(boolean isLoadAlert) {
+    public void showDataConfirmationAlert(boolean isLoadAlert, boolean isSerial) {
         String notification;
         if (isLoadAlert) {
-            notification = "Customers loaded from serial file!";
+            if (isSerial) {
+                notification = "Customers loaded from serial file!";
+            }
+            else {
+                notification = "Customers loaded from database!";
+            }
         }
         else {
-            notification = "Customers saved to serial file!";
+            if (isSerial) {
+                notification = "Customers saved to serial file!";
+            }
+            else {
+                notification = "Customers saved to database!";
+            }
         }
         Alert alert = new Alert(Alert.AlertType.INFORMATION, notification);
         alert.setTitle("Customers loaded");
@@ -226,13 +240,21 @@ public class CustomerView {
         root.getChildren().add(displayOptionsBox);
 
         HBox maintenanceOptionsBox = new HBox(17);
-        this.saveBtn = new Button("SAVE (Serial)");
-        this.loadBtn = new Button("LOAD (Serial)");
+        this.serialSaveBtn = new Button("SAVE (Serial)");
+        this.serialLoadBtn = new Button("LOAD (Serial)");
         this.exitBtn = new Button("EXIT");
-        maintenanceOptionsBox.getChildren().addAll(saveBtn, loadBtn, exitBtn);
+        maintenanceOptionsBox.getChildren().addAll(serialSaveBtn, serialLoadBtn, exitBtn);
         maintenanceOptionsBox.setAlignment(Pos.CENTER);
         maintenanceOptionsBox.setPadding(new Insets(0, 0, 10, 0));
         root.getChildren().add(maintenanceOptionsBox);
+
+        HBox dbBtnBox = new HBox(20);
+        this.dbSaveBtn = new Button("Save (DB)");
+        this.dbLoadBtn = new Button("Load (DB)");
+        dbBtnBox.getChildren().addAll(dbSaveBtn, dbLoadBtn);
+        dbBtnBox.setAlignment(Pos.CENTER);
+        root.getChildren().addAll(dbBtnBox);
+
     }
 
     public void createInfoLabel() {

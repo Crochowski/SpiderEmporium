@@ -5,10 +5,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.*;
-
+import java.util.ArrayList;
 public class MySQLManager {
     private Connection connection;
     private static MySQLManager mySQLManager = new MySQLManager();
+    private ArrayList<Customer> removedCustomers = new ArrayList<>();
 
     private MySQLManager() {}
 
@@ -16,13 +17,6 @@ public class MySQLManager {
         return mySQLManager;
     }
 
-    public Connection getConnection() {
-        // If there is no connection open, create one
-        if (connection == null) {
-            createConnection();
-        }
-        return connection;
-    }
 
     public void createConnection() {
         try {
@@ -67,6 +61,7 @@ public class MySQLManager {
         ResultSet rset = null;
 
         try {
+            // If the connection doesn't exist or is inactive, create it
             if (connection == null || connection.isClosed()) {
                 createConnection();
             }
@@ -102,16 +97,26 @@ public class MySQLManager {
         }
 
         public void saveCustomers(ObservableList<Customer> customers) {
-            PreparedStatement pstmt = null;
 
             try {
                 if (connection == null || connection.isClosed()) {
                     createConnection();
                 }
-                String query = "INSERT INTO customer (id, fname, lname, address, phone)VALUES (?, ?, ?, ?, ?)";
+
+                String deleteQuery = "DELETE FROM customer WHERE id= ?";
+                for (Customer customer: removedCustomers) {
+                    PreparedStatement pstmt = connection.prepareStatement(deleteQuery);
+                    pstmt.setInt(1, customer.getCustID());
+                    pstmt.executeUpdate();
+                }
+
+
+                String insertQuery = "INSERT INTO customer (id, fname, lname, address, phone)VALUES (?, ?, ?, ?, ?) " +
+                        "ON DUPLICATE KEY UPDATE fname=VALUES(fname), lname=VALUES(lname), address=VALUES(address), " +
+                        "phone=VALUES(phone)";
 
                 for (Customer customer : customers) {
-                    pstmt = connection.prepareStatement(query);
+                    PreparedStatement pstmt = connection.prepareStatement(insertQuery);
                     pstmt.setInt(1, customer.getCustID());
                     pstmt.setString(2, customer.getfName());
                     pstmt.setString(3, customer.getlName());
@@ -120,8 +125,8 @@ public class MySQLManager {
 
                     pstmt.executeUpdate();
                 }
-                System.out.println("Customers saved to database!");
 
+               clearRemovedCustomersList();
 
             }
             catch (SQLException e) {
@@ -129,4 +134,17 @@ public class MySQLManager {
             }
 
         }
+
+    /**
+     * Flag a customer for removal so that it will be removed when we save the list to db.
+     * @param customer - the customer to be added to the removal list.
+     */
+    public void flagCustomerForRemoval(Customer customer) {
+            this.removedCustomers.add(customer);
+        }
+
+    public void clearRemovedCustomersList() {
+        removedCustomers.clear();
+    }
+
 }

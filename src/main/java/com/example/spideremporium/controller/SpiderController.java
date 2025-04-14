@@ -1,5 +1,6 @@
 package com.example.spideremporium.controller;
 
+import com.example.spideremporium.dataManagement.MySQLManager;
 import com.example.spideremporium.dataManagement.SerializationManager;
 import com.example.spideremporium.model.*;
 import com.example.spideremporium.view.SpiderView;
@@ -71,6 +72,8 @@ public class SpiderController {
         if (saveBeforeExit) {
             SerializationManager.getSerializationManager().serializeFile(spiderOps.getSpiderList(), Spider.class);
         }
+        // Close the DB connection
+        MySQLManager.getmySQLManager().closeConnection();
         Platform.exit();
     }
 
