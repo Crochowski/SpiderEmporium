@@ -1,6 +1,6 @@
 package com.example.spideremporium.model;
 
-import com.example.spideremporium.dataManagement.SerializationManager;
+import com.example.spideremporium.controller.dataAccess.SerializationManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -9,6 +9,9 @@ public class OrderOps {
 
     public ObservableList<Order> getOrderList() {return this.orderList;}
 
+    /**
+     * Maintenance method used to wipe the orders.ser file.
+     */
     public void clearAllOrders() {
         // Create an empty list
         ObservableList<Order> emptyList = FXCollections.observableArrayList();

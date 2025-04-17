@@ -1,6 +1,6 @@
 package com.example.spideremporium.view;
 
-import com.example.spideremporium.controller.SpiderController;
+import com.example.spideremporium.controller.service.SpiderController;
 import com.example.spideremporium.model.Spider;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;

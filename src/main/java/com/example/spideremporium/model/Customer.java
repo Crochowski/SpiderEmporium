@@ -13,9 +13,6 @@ public class Customer implements Serializable {
     private String lName;               // The customer's last name
     private String address;             // The customer's address
     private String phone;
-    private boolean isValued;           // A customer is valued if they have purchased more than 2 spiders
-    private boolean isSensitive;        // The customer is sensitive if they have ever purchased an illegal spider
-    private int totalSpidersPurchased;  // The total number of spiders a customer has ever purchased
 
     static {
         nextId = loadNextID();         // Load the next ID into nextId
@@ -97,33 +94,6 @@ public class Customer implements Serializable {
 
     public String getPhone() { return this.phone; }
 
-
-    /**
-     * Given a concrete customer (this), the function returns its sensitive status.
-     * @return The sensitive status of the customer.
-     */
-    public boolean getIsSensitive() {
-        return this.isSensitive;
-    }
-
-
-    /**
-     * Given a concrete customer (this), the function returns its valued status.
-     * @return The valued status of the customer.
-     */
-    public boolean getIsValued() {
-        return this.isValued;
-    }
-
-
-    /**
-     * Given a concrete customer (this), the function returns the total number of spiders they have ever purchased.
-     * @return The total number of spiders a customer has purchased from the store.
-     */
-    public int getTotalSpidersPurchased() {
-        return this.totalSpidersPurchased;
-    }
-
     public void setCustID(int _custID) {
         this.custID = _custID;
     }
@@ -142,27 +112,6 @@ public class Customer implements Serializable {
 
     public void setPhone(String _phone) {
         this.phone = _phone;
-    }
-
-
-    /**
-     * Given a concrete customer (this), the function sets its sensitive status.
-     * @param _isSensitive - The sensitive status of the customer.
-     */
-    public void setIsSensitive(boolean _isSensitive) {
-        this.isSensitive = _isSensitive;
-    }
-
-
-    /**
-     * Given a concrete customer (this), the function increments its total spiders purchased by 1.<br>
-     * It also sets the customer's valued status to true if they have purchased more than 2 spiders in total.
-     */
-    public void incrementTotalSpidersPurchased() {
-        this.totalSpidersPurchased ++;
-        if (this.totalSpidersPurchased >= 3) {
-            this.isValued = true;
-        }
     }
 
 

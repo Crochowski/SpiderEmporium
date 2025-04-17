@@ -50,10 +50,18 @@ public abstract class Spider implements Serializable {
         return this.price;
     }
 
+    /**
+     * This method returns the stock count of a concrete spider.
+     * @return - The stock count of the spider.
+     */
     public int getStockCount() {
         return this.stockCount;
     }
 
+    /**
+     * This method sets the type of a concrete spider.
+     * @param _type - The spider's type.
+     */
     public void setType(String _type) {
         this.type = _type;
     }

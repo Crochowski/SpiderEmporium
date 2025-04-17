@@ -1,9 +1,9 @@
 package com.example.spideremporium.main;
 
-import com.example.spideremporium.controller.CustomerController;
-import com.example.spideremporium.controller.OrderController;
-import com.example.spideremporium.controller.SpiderController;
-import com.example.spideremporium.dataManagement.MySQLManager;
+import com.example.spideremporium.controller.service.CustomerController;
+import com.example.spideremporium.controller.service.OrderController;
+import com.example.spideremporium.controller.service.SpiderController;
+import com.example.spideremporium.controller.dataAccess.MySQLManager;
 import com.example.spideremporium.model.CustomerOps;
 import com.example.spideremporium.model.SpiderOps;
 import com.example.spideremporium.view.CustomerView;

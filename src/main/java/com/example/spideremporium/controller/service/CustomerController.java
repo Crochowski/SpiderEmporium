@@ -1,6 +1,6 @@
-package com.example.spideremporium.controller;
-import com.example.spideremporium.dataManagement.MySQLManager;
-import com.example.spideremporium.dataManagement.SerializationManager;
+package com.example.spideremporium.controller.service;
+import com.example.spideremporium.controller.dataAccess.MySQLManager;
+import com.example.spideremporium.controller.dataAccess.SerializationManager;
 import com.example.spideremporium.model.Customer;
 import com.example.spideremporium.model.CustomerOps;
 import com.example.spideremporium.view.CustomerView;
@@ -138,7 +138,7 @@ public class CustomerController {
      */
     public void saveCustomersToDB() {
         try {
-            MySQLManager.getmySQLManager().saveCustomers(customerOps.getCustomerList());
+            MySQLManager.getmySQLManager().saveCustomersToDB(customerOps.getCustomerList());
             customerView.updateInfoText("Customers saved to DB!");
             customerView.showDataConfirmationAlert(false, false, false);
         }

@@ -14,6 +14,11 @@ public class Order implements Serializable {
         nextId = loadNextID();         // Load the next ID into nextId
     }
 
+    /**
+     * This constructor creates an instance of an order to save to orders.ser.
+     * @param _customer - The customer who placed the order.
+     * @param _total - The total price of the order.
+     */
     public Order(Customer _customer, double _total) {
         this.customer = _customer;
         this.total = _total;
@@ -23,6 +28,9 @@ public class Order implements Serializable {
         saveNextId();
     }
 
+    /**
+     * Saves the next OrderID to nextOrderId.txt.
+     */
     private void saveNextId() {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter("database/nextOrderID.txt"));
@@ -34,6 +42,10 @@ public class Order implements Serializable {
         }
     }
 
+    /**
+     * Loads the next ID to be assigned from nextOrderId.txt and returns it.
+     * @return - The next orderID to be assigned.
+     */
     public static int loadNextID() {
         try {
             BufferedReader reader = new BufferedReader(new FileReader("database/nextOrderID.txt"));

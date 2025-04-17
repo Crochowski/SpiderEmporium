@@ -1,6 +1,6 @@
 package com.example.spideremporium.view;
 
-import com.example.spideremporium.controller.OrderController;
+import com.example.spideremporium.controller.service.OrderController;
 import com.example.spideremporium.model.Customer;
 import com.example.spideremporium.model.Order;
 import com.example.spideremporium.model.Spider;
@@ -18,7 +18,6 @@ import javafx.stage.Stage;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 
 /**
  * View class for order management UI

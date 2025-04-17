@@ -1,7 +1,7 @@
-package com.example.spideremporium.controller;
+package com.example.spideremporium.controller.service;
 
-import com.example.spideremporium.dataManagement.MySQLManager;
-import com.example.spideremporium.dataManagement.SerializationManager;
+import com.example.spideremporium.controller.dataAccess.MySQLManager;
+import com.example.spideremporium.controller.dataAccess.SerializationManager;
 import com.example.spideremporium.model.*;
 import com.example.spideremporium.view.SpiderView;
 import javafx.application.Platform;

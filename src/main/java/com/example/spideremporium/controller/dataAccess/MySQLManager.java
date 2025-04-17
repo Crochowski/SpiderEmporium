@@ -1,4 +1,4 @@
-package com.example.spideremporium.dataManagement;
+package com.example.spideremporium.controller.dataAccess;
 
 import com.example.spideremporium.model.ConcreteCustomerBuilder;
 import com.example.spideremporium.model.Customer;
@@ -9,8 +9,9 @@ import javafx.collections.ObservableList;
 import java.sql.*;
 import java.util.ArrayList;
 public class MySQLManager {
+
+    private static final MySQLManager mySQLManager = new MySQLManager();
     private Connection connection;
-    private static MySQLManager mySQLManager = new MySQLManager();
     private ArrayList<Customer> removedCustomers = new ArrayList<>();
 
     private MySQLManager() {}
@@ -115,7 +116,7 @@ public class MySQLManager {
      * this method also removes those customers from the database.
      * @param customers - The list of customers to be saved.
      */
-    public void saveCustomers(ObservableList<Customer> customers) {
+    public void saveCustomersToDB(ObservableList<Customer> customers) {
 
             try {
                 if (connection == null || connection.isClosed()) {

@@ -1,6 +1,6 @@
 package com.example.spideremporium.view;
 
-import com.example.spideremporium.controller.CustomerController;
+import com.example.spideremporium.controller.service.CustomerController;
 import com.example.spideremporium.model.Customer;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -149,6 +149,9 @@ public class CustomerView {
         root.getChildren().add(customerViewBox);
     }
 
+    /**
+     * This method clears the data in the customer textfields.
+     */
     public void clearCustomerDisplay() {
         this.fnameData.clear();
         this.lnameData.clear();
@@ -166,6 +169,13 @@ public class CustomerView {
 
     }
 
+    /**
+     * This method displays a popup that informs the user when data has been loaded or saved from the serial file or
+     * the database.
+     * @param isLoadAlert - True if the popup is for data that has been loaded, false if it has been saved.
+     * @param isSerial - True if the data is loaded/saved from serial, false if it is from mySQL database.
+     * @param isCorrupted - True if the data loaded has been corrupted.
+     */
     public void showDataConfirmationAlert(boolean isLoadAlert, boolean isSerial, boolean isCorrupted) {
         String notification;
         String title;
@@ -197,6 +207,11 @@ public class CustomerView {
         alert.showAndWait();
     }
 
+    /**
+     * This method shows a popup window when the user chooses to exit, asking if data should be saved, not saved, or
+     * if the exit should be cancelled.
+     * @return - An integer that maps to the user's choice.
+     */
     public int showExitAlert() {
         Alert exitAlert = new Alert(Alert.AlertType.CONFIRMATION);
         exitAlert.setTitle("Exit?");
@@ -264,6 +279,10 @@ public class CustomerView {
 
     }
 
+    /**
+     * This method creates the infoLabel that displays useful information such as notifying the user that a customer
+     * has been removed.
+     */
     public void createInfoLabel() {
         HBox infoBox = new HBox();
         this.infoLabel = new Label();
@@ -274,6 +293,9 @@ public class CustomerView {
         root.getChildren().add(infoBox);
     }
 
+    /**
+     * This method calls the relevant methods that create the UI.
+     */
     public void createUI() {
         createHeading();
         createTextFields();

@@ -1,6 +1,6 @@
 package com.example.spideremporium.model;
 
-import com.example.spideremporium.dataManagement.SerializationManager;
+import com.example.spideremporium.controller.dataAccess.SerializationManager;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -14,7 +14,7 @@ public class SpiderOpsTest {
     @Test
     public void testLoadSpidersFromFile() {
         SpiderOps spiderOps = new SpiderOps();
-        serializationManager.loadSpidersFromFile(spiderOps);
+        serializationManager.deSerializeFile(spiderOps.getSpiderList(), Spider.class);
         assertFalse(spiderOps.getSpiderList().isEmpty());
     }
 }
