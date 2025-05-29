@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="fcb2d928-34f7-4de9-b806-1cf2bd050286" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/customers.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/illegal.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/nextCustomerID.txt" beforeDir="false" afterPath="$PROJECT_DIR$/database/nextCustomerID.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/nextID.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/orders.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/spiders.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/spideremporium/StackHeapTest/HeapTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/spideremporium/StackHeapTest/StackTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/spideremporium/controller/dataAccess/MySQLManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/spideremporium/controller/dataAccess/MySQLManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/spideremporium/controller/service/CustomerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/spideremporium/controller/service/CustomerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/spideremporium/controller/service/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/spideremporium/controller/service/OrderController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/spideremporium/controller/service/SpiderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/spideremporium/controller/service/SpiderController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/spideremporium/main/SpiderApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/spideremporium/main/SpiderApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/spideremporium/model/ConcreteCustomerBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/spideremporium/model/ConcreteCustomerBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/spideremporium/model/CustomerOps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/spideremporium/model/CustomerOps.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/spideremporium/model/SpiderOps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/spideremporium/model/SpiderOps.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/spideremporium/view/CustomerView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/spideremporium/view/CustomerView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/spideremporium/view/OrderView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/spideremporium/view/OrderView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/spideremporium/view/SpiderView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/spideremporium/view/SpiderView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/StackAndHeapTests/HeapTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/StackAndHeapTests/StackTest.java" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
+  <component name="ProjectId" id="2w81wvkKJ7N7opUQsJJtUFq5NOc" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.SpiderApplication.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-b114ca120d71-intellij.indexing.shared.core-IU-242.21829.142" />
+        <option value="bundled-js-predefined-d6986cc7102b-7c0b70fcd90d-JavaScript-IU-242.21829.142" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="fcb2d928-34f7-4de9-b806-1cf2bd050286" name="Changes" comment="" />
+      <created>1745408630867</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1745408630867</updated>
+      <workItem from="1745408635393" duration="181000" />
+      <workItem from="1745408838165" duration="29000" />
+      <workItem from="1745937931649" duration="16000" />
+      <workItem from="1748532604783" duration="1220000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

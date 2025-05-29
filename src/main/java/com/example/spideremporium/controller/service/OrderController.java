@@ -29,7 +29,7 @@ public class OrderController {
         this.selectedSpidersList = FXCollections.observableArrayList();
         this.total = 0.0;
         this.orderOps = new OrderOps();
-        //orderOps.clearAllOrders();
+//        orderOps.clearAllOrders();          // For testing purposes
     }
 
     public ObservableList<Order> getOrderList() {
@@ -50,6 +50,9 @@ public class OrderController {
 
     }
 
+    /**
+     * This method sets up the buttons to trigger functionality.
+     */
     public void setUpButtonActions() {
         addBtn.setOnAction(e -> addSpider());
         removeBtn.setOnAction(e -> removeSpider());

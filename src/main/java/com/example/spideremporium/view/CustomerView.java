@@ -17,7 +17,7 @@ public class CustomerView {
     private CustomerController customerController;
     private TextField fnameData, lnameData, addressData, phoneData;
     private Label infoLabel;
-    private Button addBtn, removeBtn, listBtn, serialLoadBtn, serialSaveBtn, dbSaveBtn, dbLoadBtn, exitBtn;
+    private Button addBtn, removeBtn, serialLoadBtn, serialSaveBtn, dbSaveBtn, dbLoadBtn, exitBtn;
     private ListView<Customer> customerDisplay;
 
     public CustomerView() {
@@ -38,10 +38,6 @@ public class CustomerView {
 
     public Button getRemoveBtn() {
         return this.removeBtn;
-    }
-
-    public Button getListBtn() {
-        return this.listBtn;
     }
 
     public Button getSerialSaveBtn() {
@@ -256,23 +252,24 @@ public class CustomerView {
         HBox displayOptionsBox = new HBox(10);
         this.addBtn = new Button("ADD");
         this.removeBtn = new Button("REMOVE");
-        this.listBtn = new Button("LIST");
-        displayOptionsBox.getChildren().addAll(addBtn, removeBtn, listBtn);
+        this.exitBtn = new Button("EXIT");
+        displayOptionsBox.getChildren().addAll(addBtn, removeBtn, exitBtn);
         displayOptionsBox.setAlignment(Pos.CENTER);
         root.getChildren().add(displayOptionsBox);
 
         HBox maintenanceOptionsBox = new HBox(17);
         this.serialSaveBtn = new Button("SAVE (Serial)");
         this.serialLoadBtn = new Button("LOAD (Serial)");
-        this.exitBtn = new Button("EXIT");
-        maintenanceOptionsBox.getChildren().addAll(serialSaveBtn, serialLoadBtn, exitBtn);
+        maintenanceOptionsBox.getChildren().addAll(serialSaveBtn, serialLoadBtn);
         maintenanceOptionsBox.setAlignment(Pos.CENTER);
-        maintenanceOptionsBox.setPadding(new Insets(0, 0, 10, 0));
+        //maintenanceOptionsBox.setPadding(new Insets(0, 0, 10, 0));
         root.getChildren().add(maintenanceOptionsBox);
 
-        HBox dbBtnBox = new HBox(20);
-        this.dbSaveBtn = new Button("Save (DB)");
-        this.dbLoadBtn = new Button("Load (DB)");
+        HBox dbBtnBox = new HBox(17);
+        this.dbSaveBtn = new Button("SAVE (DB)");
+        this.dbSaveBtn.setPrefWidth(84);
+        this.dbLoadBtn = new Button("LOAD (DB)");
+        this.dbLoadBtn.setPrefWidth(86);
         dbBtnBox.getChildren().addAll(dbSaveBtn, dbLoadBtn);
         dbBtnBox.setAlignment(Pos.CENTER);
         root.getChildren().addAll(dbBtnBox);

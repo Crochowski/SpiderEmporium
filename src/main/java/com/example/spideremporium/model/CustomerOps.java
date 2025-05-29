@@ -20,7 +20,6 @@ public class CustomerOps {
 
     /**
      * This method adds a customer to customerList.
-     *
      * @param customer - The customer to be added.
      */
     public void addCustomer(Customer customer) {
@@ -30,7 +29,6 @@ public class CustomerOps {
 
     /**
      * This method removes a customer from customerList.
-     *
      * @param customer - The customer to be removed.
      */
     public void removeCustomer(Customer customer) {

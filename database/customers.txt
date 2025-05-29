@@ -1,4 +1,0 @@
-1,Nacho,Castiñeiras,Spain
-2,Dalinar,Kholin,Shattered Plains
-3,Freddy,Julius,Boise
-8,Ryan,Crockett,Cork

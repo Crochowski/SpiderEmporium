@@ -26,7 +26,7 @@ public class SpiderApplication extends Application {
         Tab customerTab = new Tab("Customers");
         customerTab.setClosable(false);
 
-        CustomerOps customerOps = new CustomerOps();   // Get the singleton customerOps
+        CustomerOps customerOps = new CustomerOps();
         CustomerView customerView = new CustomerView();
         CustomerController customerController = new CustomerController(customerOps);
 
@@ -76,8 +76,8 @@ public class SpiderApplication extends Application {
         stage.setTitle("Spider Emporium \uD83D\uDD77\uFE0F");
 
         // Set up button actions for all controllers
-        customerController.setUpButtonActions(stage);
-        spiderController.setUpButtonActions(stage);
+        customerController.setUpButtonActions();
+        spiderController.setUpButtonActions();
         orderController.setUpButtonActions();
 
         // Handle closing via stage x

@@ -83,6 +83,7 @@ public class MySQLManager {
             stmt = connection.createStatement();
             String query = "SELECT * FROM customer";
             rset = stmt.executeQuery(query);
+
             while (rset.next()) {
 
                 CustomerBuilder customerBuilder = new ConcreteCustomerBuilder();

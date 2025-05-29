@@ -89,9 +89,7 @@ public class OrderView {
 
     public Button getNewOrderBtn() { return this.newOrderBtn; }
 
-    public Button getViewOrdersBtn() { return this.viewOrdersBtn;
-    }
-
+    public Button getViewOrdersBtn() { return this.viewOrdersBtn;}
 
     public ComboBox<Spider> getSpiderBox() {
         return this.spiderBox;
@@ -105,6 +103,9 @@ public class OrderView {
         return this.checkOutView;
     }
 
+    /**
+     * This method calls the relevant methods that set up the UI.
+     */
     private void createUI() {
         createHeading();
         createButtons();
@@ -114,6 +115,9 @@ public class OrderView {
         createReceiptSection();
     }
 
+    /**
+     * This method creates the buttons for the UI.
+     */
     private void createButtons() {
         this.addBtn = new Button("ADD");
         this.removeBtn = new Button("Remove Spider");
@@ -122,10 +126,18 @@ public class OrderView {
         this.viewOrdersBtn = new Button("View Order History");
     }
 
+    /**
+     * Given a button and a String, the text of the button is changed.
+     * @param button - The button with the text we wish to change.
+     * @param text - The text we want the button to display.
+     */
     public void changeBtnTxt(Button button, String text) {
         button.setText(text);
     }
 
+    /**
+     * This method creates the heading section of the UI.
+     */
     private void createHeading() {
         VBox headingBox = new VBox();
         Label headingLabel = new Label("Spider Emporium \uD83D\uDD77");
@@ -136,6 +148,9 @@ public class OrderView {
         root.getChildren().add(headingBox);
     }
 
+    /**
+     * This method creates the top section of the UI.
+     */
     private void createTopSection() {
         HBox topSection = new HBox(10);
         topSection.setAlignment(Pos.TOP_CENTER);
@@ -160,6 +175,9 @@ public class OrderView {
         root.getChildren().add(topSection);
     }
 
+    /**
+     * This method creates the checkoutView where the spiders to purchase will be displayed.
+     */
     private void createCheckOutView() {
         HBox checkOutViewBox = new HBox();
         checkOutViewBox.setPadding(new Insets(10, 0, 0, 0));
@@ -173,6 +191,10 @@ public class OrderView {
         root.getChildren().add(checkOutViewBox);
     }
 
+    /**
+     * This method creates the purchase section where the total cost of the order and buttons to modify or place
+     * the order will be displayed.
+     */
     private void createPurchaseSection() {
         HBox bottomBox = new HBox(50);
         bottomBox.setPadding(new Insets(10, 0, 0, 0));
@@ -185,6 +207,9 @@ public class OrderView {
         root.getChildren().add(bottomBox);
     }
 
+    /**
+     * This method creates the receipt section, where information about the placed order will be displayed.
+     */
     private void createReceiptSection() {
         VBox orderSummaryBox = new VBox(5);
         orderSummaryBox.setPadding(new Insets(10, 0, 0, 0));
@@ -220,10 +245,17 @@ public class OrderView {
     }
 
 
-    public void updateTotalLabel(String message) {
-        this.totalLabel.setText("Total: " + message);
+    /**
+     * This method updates the displayed total with the formatted total that is passed in.
+     * @param total - The formatted total String to be displayed.
+     */
+    public void updateTotalLabel(String total) {
+        this.totalLabel.setText("Total: " + total);
     }
 
+    /**
+     * This method creates and opens a new window in which past orders are displayed.
+     */
     public void displayPastOrders()  {
         Stage pastOrderStage = new Stage();
         pastOrderStage.setTitle("Past Orders");
@@ -240,11 +272,18 @@ public class OrderView {
         pastOrderStage.show();
     }
 
+    /**
+     * This method displays an alert window if not all required items are selected.
+     */
     public void displayItemNotSelectedWarning() {
         Alert alert = new Alert(Alert.AlertType.WARNING, "Select a customer and a spider!");
         alert.showAndWait();
     }
 
+    /**
+     * This method displays the customer name and the date in the receipt section.
+     * @param customer
+     */
     public void displayCustomerAndDate(Customer customer) {
         this.receiptCustomerLabel.setText("Customer: " + customer.getfName() + " " + customer.getlName());
         LocalDate today = LocalDate.now();
@@ -253,12 +292,19 @@ public class OrderView {
         this.receiptDateLabel.setText("Date: " + formattedDate);
     }
 
+    /**
+     * This method clears the customer name and date.
+     */
     public void clearOrderComponents() {
         this.receiptCustomerLabel.setText("Customer: ");
         this.receiptDateLabel.setText("Date: ");
         this.orderReceiptView.getItems().clear();
     }
 
+    /**
+     * This method displays the purchased spiders in the receipt window.
+     * @param selectedSpidersList
+     */
     public void displayOrderReceiptInfo(ObservableList<Spider> selectedSpidersList) {
         orderReceiptView.getItems().clear();
         orderReceiptView.getItems().addAll(selectedSpidersList);

@@ -7,7 +7,6 @@ import com.example.spideremporium.view.SpiderView;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
 
 public class SpiderController {
     private SpiderOps spiderOps;
@@ -16,7 +15,7 @@ public class SpiderController {
     private TextField speciesData, priceData;
     private ToggleGroup typeGroup;
     private ComboBox<String> potencyData;
-    private Button addBtn, removeBtn, listBtn, saveBtn, loadBtn, exitBtn, counterBtn, stockBtn;
+    private Button addBtn, removeBtn, saveBtn, loadBtn, exitBtn, counterBtn, stockBtn;
 
     public SpiderController(SpiderOps _spiderOps) {
         this.spiderOps = _spiderOps; // Connect to the model
@@ -26,7 +25,10 @@ public class SpiderController {
         return spiderOps.getSpiderList();
     }
 
-    // Set the view and retrieve references to components
+    /**
+     * This method sets the spiderView and retrieves the UI references from the view.
+     * @param _spiderView - The spiderView.
+     */
     public void setSpiderView(SpiderView _spiderView) {
         this.spiderView = _spiderView;
 
@@ -40,7 +42,6 @@ public class SpiderController {
         // Get button references
         this.addBtn = spiderView.getAddBtn();
         this.removeBtn = spiderView.getRemoveBtn();
-        this.listBtn = spiderView.getListBtn();
         this.saveBtn = spiderView.getSaveBtn();
         this.loadBtn = spiderView.getLoadBtn();
         this.exitBtn = spiderView.getExitBtn();
@@ -48,10 +49,12 @@ public class SpiderController {
         this.stockBtn = spiderView.getStockBtn();
     }
 
-    public void setUpButtonActions(Stage stage) {
+    /**
+     * This method sets up the buttons to trigger functionality.
+     */
+    public void setUpButtonActions() {
         addBtn.setOnAction(e -> addSpider());
         removeBtn.setOnAction(e -> removeSpider());
-        listBtn.setOnAction(e -> displaySpiders());
         saveBtn.setOnAction(e -> saveSpiders());
         loadBtn.setOnAction(e -> loadSpiders());
         exitBtn.setOnAction(e -> exitApplication());

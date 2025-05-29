@@ -15,7 +15,7 @@ import javafx.stage.Stage;
 public class CustomerController {
     private CustomerOps customerOps;
     private CustomerView customerView;
-    private Button addBtn, removeBtn, listBtn, serialSaveBtn, serialLoadBtn, dbSaveBtn, dbLoadBtn, exitBtn;
+    private Button addBtn, removeBtn, serialSaveBtn, serialLoadBtn, dbSaveBtn, dbLoadBtn, exitBtn;
 
     public CustomerController(CustomerOps _customerOps) {
         this.customerOps = _customerOps;
@@ -32,7 +32,6 @@ public class CustomerController {
         // Get button references
         this.addBtn = customerView.getAddBtn();
         this.removeBtn = customerView.getRemoveBtn();
-        this.listBtn = customerView.getListBtn();
         this.serialSaveBtn = customerView.getSerialSaveBtn();
         this.serialLoadBtn = customerView.getSerialLoadBtn();
         this.dbSaveBtn = customerView.getDbSaveBtn();
@@ -40,10 +39,12 @@ public class CustomerController {
         this.exitBtn = customerView.getExitBtn();
     }
 
-    public void setUpButtonActions(Stage stage) {
+    /**
+     * This method sets up the buttons to trigger functionality.
+     */
+    public void setUpButtonActions() {
         addBtn.setOnAction(e -> addCustomer());
         removeBtn.setOnAction(e -> removeCustomer());
-        listBtn.setOnAction(e-> customerView.refreshCustomerDisplay());
         serialSaveBtn.setOnAction(e-> saveCustomersToSerial());
         serialLoadBtn.setOnAction(e-> loadCustomersFromSerial());
         exitBtn.setOnAction(e-> exitApplication());

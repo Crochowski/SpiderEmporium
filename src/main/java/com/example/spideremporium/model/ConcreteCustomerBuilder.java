@@ -1,5 +1,8 @@
 package com.example.spideremporium.model;
 
+/**
+ * This class creates a concrete builder used to build Customers.
+ */
 public class ConcreteCustomerBuilder implements CustomerBuilder {
     private Customer customer;
 

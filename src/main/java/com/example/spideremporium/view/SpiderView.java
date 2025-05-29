@@ -19,7 +19,7 @@ public class SpiderView {
     private TextField speciesData, priceData;
     private ComboBox<String> potencyBox;
     private Label infoLabel, stockLabel;
-    private Button addBtn, removeBtn, listBtn, loadBtn, saveBtn, exitBtn, stockBtn, counterBtn;
+    private Button addBtn, removeBtn, loadBtn, saveBtn, exitBtn, stockBtn, counterBtn;
     private ListView<Spider> spiderListView;
     private ToggleGroup typeGroup;
 
@@ -41,10 +41,6 @@ public class SpiderView {
 
     public Button getRemoveBtn() {
         return this.removeBtn;
-    }
-
-    public Button getListBtn() {
-        return this.listBtn;
     }
 
     public Button getSaveBtn() {
@@ -242,16 +238,15 @@ public class SpiderView {
         HBox displayOptionsBox = new HBox(10);
         this.addBtn = new Button("ADD");
         this.removeBtn = new Button("REMOVE");
-        this.listBtn = new Button("LIST");
-        displayOptionsBox.getChildren().addAll(addBtn, removeBtn, listBtn);
+        this.exitBtn = new Button("EXIT");
+        displayOptionsBox.getChildren().addAll(addBtn, removeBtn, exitBtn);
         displayOptionsBox.setAlignment(Pos.CENTER);
         root.getChildren().add(displayOptionsBox);
 
         HBox maintenanceOptionsBox = new HBox(17);
         this.saveBtn = new Button("SAVE (Serial)");
         this.loadBtn = new Button("LOAD (Serial)");
-        this.exitBtn = new Button("EXIT");
-        maintenanceOptionsBox.getChildren().addAll(saveBtn, loadBtn, exitBtn);
+        maintenanceOptionsBox.getChildren().addAll(saveBtn, loadBtn);
         maintenanceOptionsBox.setAlignment(Pos.CENTER);
         maintenanceOptionsBox.setPadding(new Insets(0, 0, 10, 0));
         root.getChildren().add(maintenanceOptionsBox);
