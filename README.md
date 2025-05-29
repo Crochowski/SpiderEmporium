@@ -22,3 +22,11 @@ Provides functionality for managing store operations including adding/removing c
 1. Clone this repository
 2. Open the project in your Java IDE
 3. Build and run the application
+
+## Troubleshooting
+
+If the application fails to start the first time with an error like:
+
+Error: module not found: javafx.controls
+
+Simply run the application again. It should start the second time.
